@@ -10,6 +10,7 @@ import FirebaseAuth
 
 class EventDetailsViewController: UIViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var typeIcon: UIImageView!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -32,11 +33,6 @@ class EventDetailsViewController: UIViewController {
     }
     
     //MARK: - IBActions
-    
-    @IBAction func showOnMapPressed(_ sender: UIButton) {
-        
-    }
-    
     @IBAction func participationTogglePressed(_ sender: UIButton) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let index = event.participants.firstIndex(of: uid)
@@ -52,7 +48,6 @@ class EventDetailsViewController: UIViewController {
     }
     
     //MARK: - Segue related methods
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVC = segue.destination as? MapViewController else {return}
         
@@ -61,7 +56,6 @@ class EventDetailsViewController: UIViewController {
     }
     
     //MARK: - Helper methods
-    
     func fillElements(using event: Event) {
         typeIcon.image = event.type.getIconForType()
         typeLabel.text = event.type.rawValue
@@ -71,6 +65,7 @@ class EventDetailsViewController: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension EventDetailsViewController: FirestoreManagerDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         

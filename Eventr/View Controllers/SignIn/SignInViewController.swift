@@ -10,6 +10,7 @@ import FirebaseAuth
 
 class SignInViewController: UIViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var emailMessage: UILabel!
@@ -49,16 +50,13 @@ class SignInViewController: UIViewController {
     }
 
     //MARK: - Navigation related methods
-    
     func transitionToTabBar() {
-        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-        let tabBarController = storyboard.instantiateViewController(identifier: "TabBarController")
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.setRootViewController(tabBarController)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.setRootViewController(to: .tabBar)
     }
 }
 
-extension SignInViewController: FirebaseAuthManagerGeneralDelegate {
+//MARK: - Extensions
+extension SignInViewController: FirebaseAuthManagerAuthDelegate {
     func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ error: Error) {
         guard let errorCode = AuthErrorCode(rawValue: error._code) else {return}
         
@@ -78,6 +76,10 @@ extension SignInViewController: FirebaseAuthManagerGeneralDelegate {
     
     func authenticationSuccessful(_ firebaseAuthManager: FirebaseAuthManager) {
         transitionToTabBar()
+    }
+    
+    func signOutSuccessful(_ firebaseAuthManager: FirebaseAuthManager) {
+        
     }
 }
 

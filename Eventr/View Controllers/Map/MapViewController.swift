@@ -62,7 +62,6 @@ class MapViewController: UIViewController {
     
     
     //MARK: - Location Services related methods
-    
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
             setupLocationManager()
@@ -96,7 +95,6 @@ class MapViewController: UIViewController {
     }
     
     //MARK: - MapView related methods
-    
     func centerMapOnUser() {
         if let userLocation = locationManager.location?.coordinate {
             centerMap(on: userLocation)
@@ -114,13 +112,17 @@ class MapViewController: UIViewController {
         annotation.coordinate = address.coordinate
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(annotation)
-//        let annotations = mapView.annotations
-//        print(annotations)
-//        mapView.showAnnotations(annotations, animated: true)
+    }
+    
+    //MARK: - Segue related methods
+    @IBAction func getAddressFromSearch(unwindSegue: UIStoryboardSegue) {
+        guard let sourceVC = unwindSegue.source as? AddressSearchViewController else {return}
+        
+        self.address = sourceVC.address
+        showMapAnnotation(for: self.address!)
     }
     
     //MARK: - Helper methods
-    
     func showMapAnnotation(for address: Address) {
         createAnnotation(for: mapView, using: address)
         centerMap(on: address.coordinate)
@@ -131,14 +133,6 @@ class MapViewController: UIViewController {
         searchButton.isHidden = true
         checkIcon.isHidden = true
         checkButton.isHidden = true
-    }
-    
-    //MARK: - Segue related methods
-    @IBAction func getAddressFromSearch(unwindSegue: UIStoryboardSegue) {
-        guard let sourceVC = unwindSegue.source as? AddressSearchViewController else {return}
-        
-        self.address = sourceVC.address
-        showMapAnnotation(for: self.address!)
     }
 }
 

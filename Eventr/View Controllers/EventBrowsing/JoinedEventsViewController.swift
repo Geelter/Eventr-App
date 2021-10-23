@@ -10,6 +10,7 @@ import FirebaseAuth
 
 class JoinedEventsViewController: EventViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
     var events = [Event]()
@@ -23,7 +24,6 @@ class JoinedEventsViewController: EventViewController {
     }
 
     // MARK: - TableView DataSource methods
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.isEmpty ? 1 : events.count
     }
@@ -44,13 +44,11 @@ class JoinedEventsViewController: EventViewController {
     }
     
     //MARK: - TableView Delegate methods
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: K.Segues.joinedToDetail, sender: self)
     }
     
     //MARK: - Segue related methods
-    
     @IBAction func unwindToBrowse(unwindSegue: UIStoryboardSegue) {
         guard let source = unwindSegue.source as? EventDetailsViewController else {return}
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -72,10 +70,10 @@ class JoinedEventsViewController: EventViewController {
 
     
     //MARK: - Helper methods
-    
     func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: K.TableViews.eventCellNibName, bundle: nil), forCellReuseIdentifier: K.TableViews.eventCellIdentifier)
     }
     
@@ -86,6 +84,7 @@ class JoinedEventsViewController: EventViewController {
     }
 }
 
+//MARK: - Extensions
 extension JoinedEventsViewController: FirestoreManagerDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.events = events.sorted(by: { $0.dateObject < $1.dateObject })

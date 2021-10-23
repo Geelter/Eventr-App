@@ -15,7 +15,6 @@ class EventViewController: UIViewController {
     }
 
     //MARK: - Helper methods
-    
     func fillElements(of cell: EventCell, using event: Event) {
         cell.eventTitleLabel.text = event.title
         cell.eventDateLabel.text = DateManager.shared.getDateStringForCell(from: event.dateObject)
@@ -34,9 +33,9 @@ class EventViewController: UIViewController {
         
         return cell
     }
-
 }
 
+//MARK: - Extensions
 extension EventViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

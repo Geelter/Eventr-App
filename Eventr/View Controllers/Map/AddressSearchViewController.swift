@@ -10,6 +10,7 @@ import MapKit
 
 class AddressSearchViewController: UIViewController {
 
+    //MARK: - IBOutlets
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultsTable: UITableView!
     
@@ -31,6 +32,7 @@ class AddressSearchViewController: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension AddressSearchViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results

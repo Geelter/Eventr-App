@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 class EventEditingViewController: EventManipulationViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var eventTitle: UITextField!
     @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -33,10 +34,6 @@ class EventEditingViewController: EventManipulationViewController {
         setUpAlertActions()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
     func updateEvent() {
         guard let title = eventTitle.text else {return}
         let event = Event(updatedTitle: title, updatedtype: eventType, updatedDate: datePicker.date, updatedAddress: address, originalEvent: self.event)
@@ -44,7 +41,6 @@ class EventEditingViewController: EventManipulationViewController {
     }
     
     //MARK: - IBActions
-    
     @IBAction func updateEventPressed(_ sender: UIButton) {
         guard eventTitle.text!.count > 4 else {
             eventTitle.placeholder = "Title must be at least 5 characters long"
@@ -75,7 +71,6 @@ class EventEditingViewController: EventManipulationViewController {
     }
     
     //MARK: - Helper methods
-    
     func populateView() {
         eventTitle.text = event.title
         setTypePickerRow(to: event.type)
@@ -96,6 +91,7 @@ class EventEditingViewController: EventManipulationViewController {
     }
 }
 
+//MARK: - Extensions
 extension EventEditingViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         eventType = EventTypes.allCases[row]

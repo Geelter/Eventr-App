@@ -50,4 +50,16 @@ struct AlertManager {
         
         return alert
     }
+    
+    func createProfileUpdateAlert(optionDescription: String) -> UIAlertController {
+        let alert = UIAlertController(title: "Change \(optionDescription)", message: nil, preferredStyle: .alert)
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Enter new \(optionDescription)"
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        return alert
+    }
 }

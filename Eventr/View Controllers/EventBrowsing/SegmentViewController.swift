@@ -10,6 +10,7 @@ import MapKit
 
 class SegmentViewController: UIViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var containerView: UIView!
     
@@ -22,11 +23,10 @@ class SegmentViewController: UIViewController {
         setupView()
     }
     
+    //MARK: - ViewController setup
     lazy var localEventsViewController: LocalEventsViewController = {
-        // Load storyboard
         let storyboard = UIStoryboard(name: "EventBrowsing", bundle: Bundle.main)
         
-        // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "LocalEventsViewController") as! LocalEventsViewController
         
         self.embed(viewController, inView: containerView)

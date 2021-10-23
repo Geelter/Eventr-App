@@ -9,7 +9,7 @@ import UIKit
 
 class EventCell: UITableViewCell {
 
-    //MARK: - Outlets
+    //MARK: - IBOutlets
     @IBOutlet weak var eventTypeIcon: UIImageView!
     @IBOutlet weak var eventDateIcon: UIImageView!
     @IBOutlet weak var eventAddressIcon: UIImageView!
@@ -22,18 +22,11 @@ class EventCell: UITableViewCell {
     @IBOutlet weak var dateStack: UIStackView!
     @IBOutlet weak var addressStack: UIStackView!
     
-    //MARK: - Variables
-    //var didSetupConstraints = false
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-//        eventDateIcon.image = UIImage(systemName: "calendar")
-//        eventAddressIcon.image = UIImage(systemName: "safari")
-//        eventFavouriteIcon.image = UIImage(systemName: "star")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
 }

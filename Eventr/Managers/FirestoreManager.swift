@@ -61,7 +61,6 @@ struct FirestoreManager {
     }
     
     //MARK: - Helper methods
-    
     func constructQuery(from fetchParameters: FetchParameters) -> Query {
         let collectionRef = db.collection("events")
         var query: Query!
@@ -80,11 +79,11 @@ struct FirestoreManager {
         case .arrayContains:
             query = collectionRef.whereField(fieldName, arrayContains: fieldValue)
         }
-        
         return query
     }
 }
 
+//MARK: - Protocols
 protocol FirestoreManagerDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event])
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event)

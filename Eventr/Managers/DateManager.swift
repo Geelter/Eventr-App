@@ -25,7 +25,7 @@ struct DateManager {
         return dateFormatter.date(from: string)
     }
     
-    func getDateStringForCell(from date: Date /*, using format: String*/) -> String {
+    func getDateStringForCell(from date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en-US")
         // Use E MMMd HH:mm for display in event cells

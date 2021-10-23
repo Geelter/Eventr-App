@@ -10,6 +10,7 @@ import FirebaseAuth
 
 class SignUpViewController: UIViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var fNameField: UITextField!
     @IBOutlet weak var lNameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
@@ -23,7 +24,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var rPasswordMessage: UILabel!
     
     let validator = Validator()
-    //var firebaseAuthManager = FirebaseAuthManager()
     var inputViews = [String: InputView]()
     var validationRules = [String: [Rule]]()
     
@@ -52,6 +52,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    //MARK: - IBActions
     @IBAction func registerPressed(_ sender: UIButton) {
         if validateUserInput() != 0 {print("validation failed")}
         let signUpData = trimInput(from: inputViews)
@@ -101,16 +102,13 @@ class SignUpViewController: UIViewController {
     }
     
     //MARK: - Navigation related methods
-    
     func transitionToTabBar() {
-        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-        let tabBarController = storyboard.instantiateViewController(identifier: "TabBarController")
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.setRootViewController(tabBarController)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.setRootViewController(to: .tabBar)
     }
 }
 
-extension SignUpViewController: FirebaseAuthManagerGeneralDelegate {
+//MARK: - Extensions
+extension SignUpViewController: FirebaseAuthManagerAuthDelegate {
     func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ error: Error) {
         guard let errorCode = AuthErrorCode(rawValue: error._code) else {return}
         
@@ -133,6 +131,10 @@ extension SignUpViewController: FirebaseAuthManagerGeneralDelegate {
     
     func authenticationSuccessful(_ firebaseAuthManager: FirebaseAuthManager) {
         transitionToTabBar()
+    }
+    
+    func signOutSuccessful(_ firebaseAuthManager: FirebaseAuthManager) {
+        
     }
 }
 

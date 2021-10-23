@@ -22,16 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         if user != nil {
-            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-            let tabBarController = storyboard.instantiateViewController(identifier: "TabBarController")
-            window?.rootViewController = tabBarController
-            window?.rootViewController?.tabBarController?.viewControllers?.forEach { let _ = $0.view }
-            window?.makeKeyAndVisible()
+            setRootViewController(to: .tabBar)
         } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialNavigationController = storyboard.instantiateViewController(identifier: "InitialNavigationController")
-            window?.rootViewController = initialNavigationController
-            window?.makeKeyAndVisible()
+            setRootViewController(to: .initial)
         }
     }
 
@@ -63,11 +56,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
     
-    func setRootViewController(_ viewController: UIViewController /*, _ user: User? = nil*/) {
-        if let window = self.window {
-            window.rootViewController = viewController
+//    func setRootViewController(_ viewController: UIViewController /*, _ user: User? = nil*/) {
+//        if let window = self.window {
+//            window.rootViewController = viewController
+//        }
+//    }
+    
+    func setRootViewController(to rootController: RootViewControllers) {
+        switch rootController {
+        case .initial:
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialNavigationController = storyboard.instantiateViewController(identifier: "InitialNavigationController")
+            window?.rootViewController = initialNavigationController
+            window?.makeKeyAndVisible()
+        case .tabBar:
+            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+            let tabBarController = storyboard.instantiateViewController(identifier: "TabBarController")
+            window?.rootViewController = tabBarController
+            window?.rootViewController?.tabBarController?.viewControllers?.forEach { let _ = $0.view }
+            window?.makeKeyAndVisible()
         }
     }
+}
 
+enum RootViewControllers {
+    case initial
+    case tabBar
 }
 

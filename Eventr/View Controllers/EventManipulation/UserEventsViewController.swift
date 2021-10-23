@@ -9,6 +9,7 @@ import UIKit
 
 class UserEventsViewController: EventViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
     var events = [Event]()
@@ -23,7 +24,7 @@ class UserEventsViewController: EventViewController {
     func fetchEvents() {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         print(uid)
-        let fetchParameters = FetchParameters(fieldName: "creatorUID", fieldValue: uid, fetchOperator: .equalTo /* , orderField: "date", orderDescending: false */)
+        let fetchParameters = FetchParameters(fieldName: "creatorUID", fieldValue: uid, fetchOperator: .equalTo)
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
     
@@ -32,7 +33,6 @@ class UserEventsViewController: EventViewController {
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.isEmpty ? 1 : events.count
     }
@@ -54,7 +54,6 @@ class UserEventsViewController: EventViewController {
     }
     
     //MARK: - Table view delegate methods
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectionAlert = AlertManager.shared.createEventInteractionEvent()
         setUpAlertActions(for: selectionAlert, from: indexPath)
@@ -62,7 +61,6 @@ class UserEventsViewController: EventViewController {
     }
     
     //MARK: - Segue related methods
-    
     @IBAction func appendFromCreation(unwindSegue: UIStoryboardSegue) {
         guard let source = unwindSegue.source as? EventCreationViewController else {return}
         
@@ -89,10 +87,10 @@ class UserEventsViewController: EventViewController {
     }
     
     //MARK: - Helper methods
-    
     func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: K.TableViews.eventCellNibName, bundle: nil), forCellReuseIdentifier: K.TableViews.eventCellIdentifier)
     }
     
@@ -111,6 +109,7 @@ class UserEventsViewController: EventViewController {
     }
 }
 
+//MARK: - Extensions
 extension UserEventsViewController: FirestoreManagerDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
@@ -133,6 +132,4 @@ extension UserEventsViewController: FirestoreManagerDelegate {
         let errorAlert = AlertManager.shared.createErrorAlert(title: "Error fetching events", message: error!.localizedDescription)
         present(errorAlert, animated: true)
     }
-    
-    
 }

@@ -29,7 +29,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="314" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="firstName"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="given-name"/>
                                                         <connections>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="eg2-lt-trE"/>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="r3J-mh-VL1"/>
@@ -45,7 +45,7 @@
                                                         <rect key="frame" x="0.0" y="110.5" width="314" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="lastName"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="family-name"/>
                                                         <connections>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="aXI-7p-zue"/>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="yJ0-Tz-41A"/>
@@ -61,7 +61,7 @@
                                                         <rect key="frame" x="0.0" y="221" width="314" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="email"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                                         <connections>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="1oL-8h-n4C"/>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="IK4-iA-UoF"/>
@@ -77,7 +77,7 @@
                                                         <rect key="frame" x="0.0" y="331.5" width="314" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="password"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
                                                         <connections>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="Sf0-1q-JEA"/>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="ZwU-6i-FGn"/>
@@ -93,7 +93,7 @@
                                                         <rect key="frame" x="0.0" y="442" width="314" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="rPassword"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                         <connections>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="Lzu-Zt-uw4"/>
                                                             <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="pxY-6K-p5l"/>
@@ -200,7 +200,6 @@
         <!--Navigation Controller-->
         <scene sceneID="Ig9-IS-pEP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gdF-zA-3cn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9yL-K1-n2e" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fqc-gK-SPz">
@@ -212,6 +211,7 @@
                         <segue destination="jmP-hS-uEo" kind="relationship" relationship="rootViewController" id="vf1-HS-XtP"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gdF-zA-3cn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1986.9565217391305" y="509.59821428571428"/>
         </scene>

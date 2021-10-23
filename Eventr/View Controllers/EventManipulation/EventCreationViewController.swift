@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 class EventCreationViewController: EventManipulationViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var eventTitle: UITextField!
     @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -19,7 +20,6 @@ class EventCreationViewController: EventManipulationViewController {
     
     var event: Event?
     var address: Address?
-    
     var eventType = EventTypes.general
     
     override func viewDidLoad() {
@@ -44,21 +44,6 @@ class EventCreationViewController: EventManipulationViewController {
         createEvent()
     }
     
-    //MARK: - Helper functions
-    
-    func createEvent() {
-        if let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid, let title = eventTitle.text {
-            let event = Event(creatorUID: uid, title: title, type: eventType, date: datePicker.date, address: address!)
-            self.event = event
-            FirestoreManager.shared.saveEvent(event, from: self)
-        }
-    }
-    
-    func setTypePickerRow(to eventType: EventTypes) {
-        let typeIndex = EventTypes.allCases.firstIndex(of: eventType)
-        typePicker.selectRow(typeIndex!, inComponent: 0, animated: true)
-    }
-
     //MARK: - Segue related methods
     @IBAction func getAddressFromMap(unwindSegue: UIStoryboardSegue) {
         guard let sourceVC = unwindSegue.source as? MapViewController else {return}
@@ -75,8 +60,23 @@ class EventCreationViewController: EventManipulationViewController {
             destinationVC.address = address
         }
     }
+    
+    //MARK: - Helper functions
+    func createEvent() {
+        if let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid, let title = eventTitle.text {
+            let event = Event(creatorUID: uid, title: title, type: eventType, date: datePicker.date, address: address!)
+            self.event = event
+            FirestoreManager.shared.saveEvent(event, from: self)
+        }
+    }
+    
+    func setTypePickerRow(to eventType: EventTypes) {
+        let typeIndex = EventTypes.allCases.firstIndex(of: eventType)
+        typePicker.selectRow(typeIndex!, inComponent: 0, animated: true)
+    }
 }
 
+//MARK: - Extensions
 extension EventCreationViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         eventType = EventTypes.allCases[row]
@@ -129,6 +129,4 @@ extension EventCreationViewController: FirestoreManagerDelegate {
         let errorAlert = AlertManager.shared.createErrorAlert(title: "Error saving event", message: message)
         present(errorAlert, animated: true)
     }
-    
-    
 }

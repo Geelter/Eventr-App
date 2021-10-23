@@ -11,6 +11,7 @@ import MapKit
 
 class LocalEventsViewController: EventViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var changeCityButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -43,13 +44,11 @@ class LocalEventsViewController: EventViewController {
     }
     
     //MARK: - IBActions
-    
     @IBAction func changeCityPressed(_ sender: UIButton) {
         present(locationAlert, animated: true)
     }
     
     //MARK: - TableView DataSource methods
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.isEmpty ? 1 : events.count
     }
@@ -70,13 +69,30 @@ class LocalEventsViewController: EventViewController {
     }
     
     //MARK: - TableView Delegate methods
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: K.Segues.localToDetail, sender: self)
     }
     
-    //MARK: - Segue related methods
+    //MARK: - Location services related methods
+    func checkLocationPermission() {
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse:
+            setUpLocationManager()
+            locationManager.requestLocation()
+        case .denied:
+            let deniedAlert = AlertManager.shared.createConfirmationAlert(title: "Eventr was denied location access", message: "To use this apps full capabilities go to your location services settings and allow this app access to device location while in use")
+            present(deniedAlert, animated: true)
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            let restrictedAlert = AlertManager.shared.createInformationAlert(title: "Use of location services restricted", message: "Your device may use parental controls to restrict use of location services. Request for permissions to use this apps full capabilities.")
+            present(restrictedAlert, animated: true)
+        case .authorizedAlways:
+            break
+        }
+    }
     
+    //MARK: - Segue related methods
     @IBAction func unwindToBrowse(unwindSegue: UIStoryboardSegue) {
         guard let source = unwindSegue.source as? EventDetailsViewController else {return}
         
@@ -96,7 +112,6 @@ class LocalEventsViewController: EventViewController {
     }
     
     //MARK: - Helper methods
-    
     func fetchEvents(for city: String) {
         let fetchParameters = FetchParameters(fieldName: "city", fieldValue: city, fetchOperator: .equalTo /* , orderField: "date", orderDescending: false */)
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
@@ -105,6 +120,7 @@ class LocalEventsViewController: EventViewController {
     func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: K.TableViews.eventCellNibName, bundle: nil), forCellReuseIdentifier: K.TableViews.eventCellIdentifier)
     }
     
@@ -134,28 +150,9 @@ class LocalEventsViewController: EventViewController {
             }
         }))
     }
-    
-    //MARK: - Location related methods
-    
-    func checkLocationPermission() {
-        switch locationManager.authorizationStatus {
-        case .authorizedWhenInUse:
-            setUpLocationManager()
-            locationManager.requestLocation()
-        case .denied:
-            let deniedAlert = AlertManager.shared.createConfirmationAlert(title: "Eventr was denied location access", message: "To use this apps full capabilities go to your location services settings and allow this app access to device location while in use")
-            present(deniedAlert, animated: true)
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted:
-            let restrictedAlert = AlertManager.shared.createInformationAlert(title: "Use of location services restricted", message: "Your device may use parental controls to restrict use of location services. Request for permissions to use this apps full capabilities.")
-            present(restrictedAlert, animated: true)
-        case .authorizedAlways:
-            break
-        }
-    }
 }
 
+//MARK: - Extensions
 extension LocalEventsViewController: FirestoreManagerDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}

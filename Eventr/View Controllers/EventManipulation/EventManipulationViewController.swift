@@ -14,7 +14,6 @@ class EventManipulationViewController: UIViewController {
     }
 
     //MARK: - Date Picker related methods
-    
     func setUpDatePicker(_ datePicker: UIDatePicker, with date: Date) {
         setMinDate(for: datePicker, using: date)
         setMaxDate(for: datePicker, using: date)
@@ -33,7 +32,6 @@ class EventManipulationViewController: UIViewController {
     }
     
     //MARK: - Type Picker related methods
-    
     func setUpTypePicker(_ typePicker: UIPickerView, for viewController: UIPickerViewHandler) {
         typePicker.delegate = viewController
         typePicker.dataSource = viewController

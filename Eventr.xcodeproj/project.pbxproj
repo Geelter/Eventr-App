@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6100BBD2272421430087E51D /* SettingsSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100BBD1272421430087E51D /* SettingsSections.swift */; };
+		6100BBD8272433090087E51D /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100BBD6272433090087E51D /* SettingCell.swift */; };
+		6100BBD9272433090087E51D /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6100BBD7272433090087E51D /* SettingCell.xib */; };
 		61092208271C36C6005B9436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61092207271C36C6005B9436 /* AppDelegate.swift */; };
 		6109220A271C36C6005B9436 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61092209271C36C6005B9436 /* SceneDelegate.swift */; };
 		61092211271C36C8005B9436 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61092210271C36C8005B9436 /* Assets.xcassets */; };
@@ -82,6 +85,9 @@
 /* Begin PBXFileReference section */
 		1F56A11C95CE71B59A18CC7B /* Pods-Eventr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eventr.debug.xcconfig"; path = "Target Support Files/Pods-Eventr/Pods-Eventr.debug.xcconfig"; sourceTree = "<group>"; };
 		2B3FE4BD6332E614BBED8B60 /* Pods_Eventr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eventr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6100BBD1272421430087E51D /* SettingsSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSections.swift; sourceTree = "<group>"; };
+		6100BBD6272433090087E51D /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		6100BBD7272433090087E51D /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		61092204271C36C6005B9436 /* Eventr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eventr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61092207271C36C6005B9436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61092209271C36C6005B9436 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -327,6 +333,7 @@
 				61092259271C37CF005B9436 /* EventTypes.swift */,
 				61092250271C37CF005B9436 /* Address.swift */,
 				6109224F271C37CF005B9436 /* FetchParameters.swift */,
+				6100BBD1272421430087E51D /* SettingsSections.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -391,6 +398,8 @@
 			children = (
 				6109226B271C37CF005B9436 /* EventCell.swift */,
 				6109226C271C37CF005B9436 /* EventCell.xib */,
+				6100BBD6272433090087E51D /* SettingCell.swift */,
+				6100BBD7272433090087E51D /* SettingCell.xib */,
 			);
 			path = "Table Cells";
 			sourceTree = "<group>";
@@ -548,6 +557,7 @@
 			files = (
 				61092296271C37CF005B9436 /* GoogleService-Info.plist in Resources */,
 				6109228E271C37CF005B9436 /* Main.storyboard in Resources */,
+				6100BBD9272433090087E51D /* SettingCell.xib in Resources */,
 				61092214271C36C8005B9436 /* LaunchScreen.storyboard in Resources */,
 				61F4A2FF2722F8FE007881B8 /* EventDetails.storyboard in Resources */,
 				61092292271C37CF005B9436 /* Settings.storyboard in Resources */,
@@ -695,6 +705,7 @@
 				6109227E271C37CF005B9436 /* InitialViewController.swift in Sources */,
 				61092289271C37CF005B9436 /* Rule.swift in Sources */,
 				61092281271C37CF005B9436 /* Event.swift in Sources */,
+				6100BBD2272421430087E51D /* SettingsSections.swift in Sources */,
 				61092279271C37CF005B9436 /* AddressSearchViewController.swift in Sources */,
 				615937F92721A264001C6C12 /* JoinedEventsViewController.swift in Sources */,
 				615937EC27207D8F001C6C12 /* AlertManager.swift in Sources */,
@@ -712,6 +723,7 @@
 				611B731E271DC6FB009D9200 /* UserEventsViewController.swift in Sources */,
 				61F4A314272404B9007881B8 /* SettingsViewController.swift in Sources */,
 				61092298271C37CF005B9436 /* UIViewExtension.swift in Sources */,
+				6100BBD8272433090087E51D /* SettingCell.swift in Sources */,
 				61092284271C37CF005B9436 /* FirebaseAuthManager.swift in Sources */,
 				61092288271C37CF005B9436 /* Validator.swift in Sources */,
 				61F4A3042722F94C007881B8 /* EventDetailsViewController.swift in Sources */,

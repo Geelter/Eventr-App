@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7Og-Im-t8W">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="4zf-ui-PMi">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBarController" id="7Og-Im-t8W" customClass="TabBarViewController" customModule="Eventr" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="fMu-eH-6VZ"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="85c-HU-qyT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="z5f-ve-VPk" kind="relationship" relationship="viewControllers" id="SAc-rb-HKb"/>
+                        <segue destination="pSP-Mb-dRK" kind="relationship" relationship="viewControllers" id="TVs-o1-Ayb"/>
+                        <segue destination="0j0-Pv-nNV" kind="relationship" relationship="viewControllers" id="6HD-C9-sAY"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E7r-Lb-3CA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3125" y="138"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="IQz-Bp-KU6">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="0j0-Pv-nNV" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape.fill" catalog="system" id="FPi-m2-kYK"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PNT-Ck-reS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3432" y="607"/>
+        </scene>
+        <!--EventManipulation-->
+        <scene sceneID="Jch-JZ-xox">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EventManipulation" id="z5f-ve-VPk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Manage Events" image="pencil.circle.fill" catalog="system" id="Xze-p1-06e"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pyF-Oq-mbp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2834" y="607"/>
+        </scene>
+        <!--EventBrowsing-->
+        <scene sceneID="1qN-cr-fnb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EventBrowsing" id="pSP-Mb-dRK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Browse Events" image="binoculars.fill" catalog="system" id="N5c-gM-0Bh"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WDC-aI-0fa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3125" y="607"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="binoculars.fill" catalog="system" width="128" height="90"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
+    </resources>
+</document>

@@ -2,21 +2,37 @@
 //  SceneDelegate.swift
 //  Eventr
 //
-//  Created by Mateusz Jabłoniec on 17/10/2021.
+//  Created by Mateusz Jabłoniec on 09/09/2021.
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
+    let user = Auth.auth().currentUser
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        
+        if user != nil {
+            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+            let tabBarController = storyboard.instantiateViewController(identifier: "TabBarController")
+            window?.rootViewController = tabBarController
+            window?.rootViewController?.tabBarController?.viewControllers?.forEach { let _ = $0.view }
+            window?.makeKeyAndVisible()
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialNavigationController = storyboard.instantiateViewController(identifier: "InitialNavigationController")
+            window?.rootViewController = initialNavigationController
+            window?.makeKeyAndVisible()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -46,7 +62,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
+    
+    func setRootViewController(_ viewController: UIViewController /*, _ user: User? = nil*/) {
+        if let window = self.window {
+            window.rootViewController = viewController
+        }
+    }
 
 }
 

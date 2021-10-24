@@ -16,17 +16,17 @@ extension EventTypes {
     func getIconForType() -> UIImage? {
         switch self {
         case .general:
-            return UIImage(systemName: "person.3")
+            return UIImage(systemName: "person.3.fill")
         case .hobby:
-            return UIImage(systemName: "gamecontroller")
+            return UIImage(systemName: "gamecontroller.fill")
         case .dinner:
-            return UIImage(named: "Fork")
+            return UIImage(systemName: "fork.knife.circle")
         case .bar:
-            return UIImage(systemName: "person.3")
+            return UIImage(systemName: "cup.and.saucer.fill")
         case .movie:
-            return UIImage(systemName: "person.3")
+            return UIImage(systemName: "film.fill")
         case .sightseeing:
-            return UIImage(systemName: "person.3")
+            return UIImage(systemName: "figure.walk")
         }
     }
 }

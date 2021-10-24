@@ -20,6 +20,8 @@ class EventViewController: UIViewController {
         cell.eventDateLabel.text = DateManager.shared.getDateStringForCell(from: event.dateObject)
         cell.eventAddressLabel.text = event.addressDetail
         cell.eventTypeIcon.image = event.type.getIconForType()
+        cell.eventAddressIcon.image = UIImage(systemName: "map.fill")
+        cell.eventDateIcon.image = UIImage(systemName: "calendar")
         guard let uid = Auth.auth().currentUser?.uid else {return}
         cell.eventFavouriteIcon.image = event.participants.contains(uid) ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
     }

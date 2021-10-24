@@ -21,7 +21,7 @@ enum SettingsSections: Int, CaseIterable, CustomStringConvertible {
     }
 }
 
-enum AccountManagementOptions: Int, CaseIterable, CustomStringConvertible {
+enum AccountManagementOptions: Int, CaseIterable, UserProfileString {
     case displayName
     case email
     case password
@@ -36,6 +36,17 @@ enum AccountManagementOptions: Int, CaseIterable, CustomStringConvertible {
             return "Password"
         }
     }
+    
+    var userProfileProperty: String? {
+        switch self {
+        case .displayName:
+            return FirebaseAuthManager.shared.getCurrentUser()?.displayName
+        case .email:
+            return FirebaseAuthManager.shared.getCurrentUser()?.email
+        case .password:
+            return "••••••"
+        }
+    }
 }
 
 enum SignOutOptions: Int, CaseIterable, CustomStringConvertible {
@@ -47,4 +58,8 @@ enum SignOutOptions: Int, CaseIterable, CustomStringConvertible {
             return "Sign Out"
         }
     }
+}
+
+protocol UserProfileString: CustomStringConvertible {
+    var userProfileProperty: String? { get }
 }

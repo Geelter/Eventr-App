@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class UserEventsViewController: EventViewController {
     
@@ -54,7 +55,7 @@ class UserEventsViewController: EventViewController {
     }
     
     //MARK: - Table view delegate methods
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectionAlert = AlertManager.shared.createEventInteractionEvent()
         setUpAlertActions(for: selectionAlert, from: indexPath)
         present(selectionAlert, animated: true)
@@ -110,15 +111,15 @@ class UserEventsViewController: EventViewController {
 }
 
 //MARK: - Extensions
-extension UserEventsViewController: FirestoreManagerDelegate {
+extension UserEventsViewController: FirestoreManagerFetchDelegate, FirestoreDeleteDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
         tableView.reloadData()
     }
 
-    func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
-        
-    }
+//    func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
+//
+//    }
     
     func didDeleteEvent(_ firestoreManager: FirestoreManager) {
         guard let eventIndex = tableView.indexPathForSelectedRow else {return}
@@ -128,8 +129,8 @@ extension UserEventsViewController: FirestoreManagerDelegate {
         tableView.reloadData()
     }
     
-    func didFailWithError(_ firestoreManager: FirestoreManager, error: Error?) {
-        let errorAlert = AlertManager.shared.createErrorAlert(title: "Error fetching events", message: error!.localizedDescription)
+    func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        let errorAlert = AlertManager.shared.createInformationAlert(title: "Error fetching events", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }
 }

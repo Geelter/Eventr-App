@@ -17,18 +17,10 @@ struct AlertManager {
         return alert
     }
     
-    func createErrorAlert(title: String, message: String) -> UIAlertController {
+    func createInformationAlert(title: String, message: String, cancelTitle: String) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        
-        return alert
-    }
-    
-    func createConfirmationAlert(title: String, message: String) -> UIAlertController {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: nil))
         
         return alert
     }
@@ -43,19 +35,31 @@ struct AlertManager {
         return alert
     }
     
-    func createInformationAlert(title: String, message: String) -> UIAlertController {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "I understand", style: .cancel, handler: nil))
-        
-        return alert
-    }
-    
     func createProfileUpdateAlert(optionDescription: String) -> UIAlertController {
         let alert = UIAlertController(title: "Change \(optionDescription)", message: nil, preferredStyle: .alert)
         
         alert.addTextField { textField in
             textField.placeholder = "Enter new \(optionDescription)"
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        return alert
+    }
+    
+    func createCredentialChangeAlert(for credentialType: CredentialTypes) -> UIAlertController {
+        let alert = UIAlertController(title: "Change your \(credentialType.rawValue)", message: "Enter your new \(credentialType.rawValue) and current password", preferredStyle: .alert)
+                
+        alert.addTextField { textField in
+            textField.placeholder = "New \(credentialType.rawValue)"
+            textField.isSecureTextEntry = true
+            textField.returnKeyType = .continue
+        }
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Current password"
+            textField.isSecureTextEntry = true
+            textField.returnKeyType = .done
         }
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

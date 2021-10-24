@@ -45,9 +45,8 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func pickAddressButtonPressed(_ sender: Any) {
-        // Present alert telling user that they need to pick an address to use this
         guard address != nil else {
-            let addressAlert = AlertManager.shared.createInformationAlert(title: "Search for an address first", message: "")
+            let addressAlert = AlertManager.shared.createInformationAlert(title: "Search for an address first", message: "", cancelTitle: "I understand")
             present(addressAlert, animated: true)
             return
         }
@@ -67,7 +66,9 @@ class MapViewController: UIViewController {
             setupLocationManager()
             checkLocationPermissions()
         } else {
-            // Show alert telling user they need to turn this on
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            let alert = AlertManager.shared.createInformationAlert(title: "This app makes use of location services.", message: "To leverage it's full functionality please turn on location services device wide.", cancelTitle: "I understand")
+            present(alert, animated: true)
         }
     }
     
@@ -150,7 +151,6 @@ extension MapViewController: MKMapViewDelegate {
         } else {
             annotationView!.annotation = annotation
         }
-        
         return annotationView
     }
 }

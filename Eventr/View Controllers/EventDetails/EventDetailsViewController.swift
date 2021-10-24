@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseAuth
+import FirebaseFirestore
 
 class EventDetailsViewController: UIViewController {
     
@@ -33,8 +33,12 @@ class EventDetailsViewController: UIViewController {
     }
     
     //MARK: - IBActions
+    @IBAction func showOnMapPressed(_ sender: UIButton) {
+        // Triggers segue to MapViewController
+    }
+    
     @IBAction func participationTogglePressed(_ sender: UIButton) {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         let index = event.participants.firstIndex(of: uid)
         if !participationAttempted {
             if index == nil {
@@ -62,25 +66,19 @@ class EventDetailsViewController: UIViewController {
         titleLabel.text = event.title
         dateLabel.text = DateManager.shared.getDateStringForCell(from: event.dateObject)
         addressLabel.text = event.addressDetail
+        let buttonTitle = event.participants.contains(FirebaseAuthManager.shared.getCurrentUser()!.uid) ? "Leave" : "Join"
+        participationButton.setTitle(buttonTitle, for: .normal)
     }
 }
 
 //MARK: - Extensions
-extension EventDetailsViewController: FirestoreManagerDelegate {
-    func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
-        
-    }
-    
+extension EventDetailsViewController: FirestoreManagerSaveDelegate {
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
         performSegue(withIdentifier: K.Segues.unwindToBrowse, sender: self)
     }
-    
-    func didDeleteEvent(_ firestoreManager: FirestoreManager) {
-        
-    }
-    
-    func didFailWithError(_ firestoreManager: FirestoreManager, error: Error?) {
-        let alert = AlertManager.shared.createErrorAlert(title: "Error declaring event participation", message: "Try again")
+
+    func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        let alert = AlertManager.shared.createInformationAlert(title: "Error declaring event participation", message: errorMessage, cancelTitle: "Dismiss")
         present(alert, animated: true)
     }
 }

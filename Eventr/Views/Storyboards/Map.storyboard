@@ -21,7 +21,7 @@
                             </mapView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QNr-wM-5Eu">
                                 <rect key="frame" x="304" y="752.5" width="60" height="59"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="SBb-jK-gZK"/>
                                     <constraint firstAttribute="width" constant="60" id="UfK-XY-1Dq"/>
@@ -39,7 +39,7 @@
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CrG-ZK-pJL">
                                 <rect key="frame" x="50" y="752.5" width="60" height="59"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="OsX-j5-6lg"/>
                                     <constraint firstAttribute="width" constant="60" id="RRt-H5-hRH"/>
@@ -161,6 +161,9 @@
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="location" catalog="system" width="128" height="121"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

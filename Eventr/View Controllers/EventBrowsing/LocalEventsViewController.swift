@@ -69,7 +69,7 @@ class LocalEventsViewController: EventViewController {
     }
     
     //MARK: - TableView Delegate methods
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: K.Segues.localToDetail, sender: self)
     }
     
@@ -80,12 +80,12 @@ class LocalEventsViewController: EventViewController {
             setUpLocationManager()
             locationManager.requestLocation()
         case .denied:
-            let deniedAlert = AlertManager.shared.createConfirmationAlert(title: "Eventr was denied location access", message: "To use this apps full capabilities go to your location services settings and allow this app access to device location while in use")
+            let deniedAlert = AlertManager.shared.createInformationAlert(title: "Eventr was denied location access", message: "To use this apps full capabilities go to your location services settings and allow this app access to device location while in use", cancelTitle: "I understand")
             present(deniedAlert, animated: true)
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            let restrictedAlert = AlertManager.shared.createInformationAlert(title: "Use of location services restricted", message: "Your device may use parental controls to restrict use of location services. Request for permissions to use this apps full capabilities.")
+            let restrictedAlert = AlertManager.shared.createInformationAlert(title: "Use of location services restricted", message: "Your device may use parental controls to restrict use of location services. Request for permissions to use this apps full capabilities.", cancelTitle: "I understand")
             present(restrictedAlert, animated: true)
         case .authorizedAlways:
             break
@@ -153,34 +153,17 @@ class LocalEventsViewController: EventViewController {
 }
 
 //MARK: - Extensions
-extension LocalEventsViewController: FirestoreManagerDelegate {
+extension LocalEventsViewController: FirestoreManagerFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         let filteredEvents = events.filter { $0.creatorUID != uid }
         self.events = filteredEvents.sorted(by: { $0.dateObject < $1.dateObject })
         tableView.reloadData()
     }
-    
-    func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
-        
-    }
-    
-    func didDeleteEvent(_ firestoreManager: FirestoreManager) {
-        
-    }
-    
-    func didFailWithError(_ firestoreManager: FirestoreManager, error: Error?) {
-        let errorAlert = AlertManager.shared.createErrorAlert(title: "Error fetching events", message: error!.localizedDescription)
+
+    func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        let errorAlert = AlertManager.shared.createInformationAlert(title: "Error fetching events", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
-        
-        guard let errorCode = FirestoreErrorCode(rawValue: error!._code) else {return}
-        
-        switch errorCode {
-        case .OK:
-            break
-        default:
-            break
-        }
     }
 }
 

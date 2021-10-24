@@ -22,7 +22,7 @@ class EventEditingViewController: EventManipulationViewController {
     var eventIndex: Int!
     
     var eventType = EventTypes.general
-    let saveConfirmAlert = AlertManager.shared.createConfirmationAlert(title: "Are you sure you want to save your changes?", message: "")
+    let saveConfirmAlert = AlertManager.shared.createInformationAlert(title: "Are you sure you want to save your changes?", message: "", cancelTitle: "Cancel")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,7 @@ class EventEditingViewController: EventManipulationViewController {
         address = Address(from: event)
         populateView()
         setUpAlertActions()
+        eventTitle.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     }
     
     func updateEvent() {
@@ -113,34 +114,14 @@ extension EventEditingViewController: UIPickerViewDataSource {
     }
 }
 
-extension EventEditingViewController: FirestoreManagerDelegate {
-    func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
-        print("Events fetched")
-    }
-
+extension EventEditingViewController: FirestoreManagerSaveDelegate {
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
         self.event = event
         performSegue(withIdentifier: K.Segues.unwindToManage, sender: self)
     }
-    
-    func didDeleteEvent(_ firestoreManager: FirestoreManager) {
-        
-    }
-    
-    func didFailWithError(_ firestoreManager: FirestoreManager, error: Error?) {
-        guard let errorCode = FirestoreErrorCode(rawValue: error!._code) else {return}
-        var message: String!
-        
-        switch errorCode {
-        case .aborted:
-            message = "Operation was aborted. Try again."
-        case .unavailable:
-            message = "Try again"
-        default:
-            message = "Error during event saving. Try again."
-        }
-        
-        let errorAlert = AlertManager.shared.createErrorAlert(title: "Error saving event", message: message)
+
+    func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        let errorAlert = AlertManager.shared.createInformationAlert(title: "Error saving event", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }
 

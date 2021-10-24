@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9yL-K1-n2e">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,170 +13,153 @@
             <objects>
                 <viewController storyboardIdentifier="SignUpController" id="jmP-hS-uEo" customClass="SignUpViewController" customModule="Eventr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fqB-lz-pQD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZJ-K3-Whr">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0f-Az-PNc" userLabel="Form View">
+                                <rect key="frame" x="0.0" y="50" width="1024" height="1316"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0f-Az-PNc" userLabel="Form View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="7cm-bD-ZqC" userLabel="Form Stack View">
+                                        <rect key="frame" x="413" y="367" width="198.5" height="582.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="7cm-bD-ZqC" userLabel="Form Stack View">
-                                                <rect key="frame" x="50" y="109" width="314" height="582.5"/>
-                                                <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MqZ-f5-CZh" userLabel="First Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="314" height="34"/>
-                                                        <accessibility key="accessibilityConfiguration" identifier="firstName"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="given-name"/>
-                                                        <connections>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="eg2-lt-trE"/>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="r3J-mh-VL1"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FName error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3PV-RQ-Xyj" userLabel="FName error message">
-                                                        <rect key="frame" x="0.0" y="62" width="314" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KNM-65-nxK" userLabel="Last Name">
-                                                        <rect key="frame" x="0.0" y="110.5" width="314" height="34"/>
-                                                        <accessibility key="accessibilityConfiguration" identifier="lastName"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="family-name"/>
-                                                        <connections>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="aXI-7p-zue"/>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="yJ0-Tz-41A"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LName error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyi-Ez-7Ml" userLabel="LName error message">
-                                                        <rect key="frame" x="0.0" y="172.5" width="314" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d77-SE-eBu">
-                                                        <rect key="frame" x="0.0" y="221" width="314" height="34"/>
-                                                        <accessibility key="accessibilityConfiguration" identifier="email"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
-                                                        <connections>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="1oL-8h-n4C"/>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="IK4-iA-UoF"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDH-2x-tOw">
-                                                        <rect key="frame" x="0.0" y="283" width="314" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="buB-wI-Ibq" userLabel="Password">
-                                                        <rect key="frame" x="0.0" y="331.5" width="314" height="34"/>
-                                                        <accessibility key="accessibilityConfiguration" identifier="password"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
-                                                        <connections>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="Sf0-1q-JEA"/>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="ZwU-6i-FGn"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sy2-Jb-gQ3" userLabel="Password error message">
-                                                        <rect key="frame" x="0.0" y="393.5" width="314" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gzh-ch-2Z6" userLabel="rPassword">
-                                                        <rect key="frame" x="0.0" y="442" width="314" height="34"/>
-                                                        <accessibility key="accessibilityConfiguration" identifier="rPassword"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
-                                                        <connections>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="Lzu-Zt-uw4"/>
-                                                            <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="pxY-6K-p5l"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RPassword error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n98-Hx-ewP" userLabel="RPassword error message">
-                                                        <rect key="frame" x="0.0" y="504" width="314" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVR-9J-qON">
-                                                        <rect key="frame" x="128.5" y="552.5" width="57" height="30"/>
-                                                        <state key="normal" title="Register"/>
-                                                        <connections>
-                                                            <action selector="registerPressed:" destination="jmP-hS-uEo" eventType="touchUpInside" id="fgq-Pf-FJa"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="n98-Hx-ewP" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="0vy-ky-ecK"/>
-                                                    <constraint firstItem="3PV-RQ-Xyj" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="1gu-8s-7iQ"/>
-                                                    <constraint firstItem="gzh-ch-2Z6" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="3ka-lo-gAl"/>
-                                                    <constraint firstItem="gzh-ch-2Z6" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="8eZ-tJ-gCK"/>
-                                                    <constraint firstItem="UDH-2x-tOw" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="9TU-H0-nRh"/>
-                                                    <constraint firstItem="KNM-65-nxK" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="B1n-kb-l5r"/>
-                                                    <constraint firstItem="oyi-Ez-7Ml" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="BDV-4M-HxQ"/>
-                                                    <constraint firstItem="gzh-ch-2Z6" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="CHY-Hb-SAs"/>
-                                                    <constraint firstItem="sy2-Jb-gQ3" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="EMc-06-KIw"/>
-                                                    <constraint firstItem="MqZ-f5-CZh" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="F1S-JH-hOm"/>
-                                                    <constraint firstItem="UDH-2x-tOw" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="GHa-qb-tCD"/>
-                                                    <constraint firstItem="n98-Hx-ewP" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="GKf-wL-pmF"/>
-                                                    <constraint firstItem="buB-wI-Ibq" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="GWU-JW-S01"/>
-                                                    <constraint firstItem="buB-wI-Ibq" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="Hxz-3q-Hl6"/>
-                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="Ixv-e6-C09"/>
-                                                    <constraint firstItem="buB-wI-Ibq" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="Nne-M6-BCU"/>
-                                                    <constraint firstItem="KNM-65-nxK" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="RrQ-b5-60T"/>
-                                                    <constraint firstItem="d77-SE-eBu" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="SwJ-rV-Fnc"/>
-                                                    <constraint firstItem="KNM-65-nxK" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="TMJ-vQ-78f"/>
-                                                    <constraint firstItem="d77-SE-eBu" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="To5-3G-0ND"/>
-                                                    <constraint firstItem="OVR-9J-qON" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="UGM-eU-saw"/>
-                                                    <constraint firstItem="MqZ-f5-CZh" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="Z4V-nC-eAl"/>
-                                                    <constraint firstItem="d77-SE-eBu" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="Zq3-DJ-Of6"/>
-                                                    <constraint firstItem="oyi-Ez-7Ml" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="aV7-l1-wiE"/>
-                                                    <constraint firstItem="sy2-Jb-gQ3" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="at1-6M-Ozm"/>
-                                                    <constraint firstItem="sy2-Jb-gQ3" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="gF3-gW-Vhx"/>
-                                                    <constraint firstItem="3PV-RQ-Xyj" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="jmf-Jv-FHb"/>
-                                                    <constraint firstItem="3PV-RQ-Xyj" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="pXi-hX-rZ5"/>
-                                                    <constraint firstItem="n98-Hx-ewP" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="r1y-8l-QeO"/>
-                                                    <constraint firstItem="UDH-2x-tOw" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="tOf-AG-Xhb"/>
-                                                    <constraint firstItem="MqZ-f5-CZh" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="uf1-Z1-N8l"/>
-                                                    <constraint firstItem="oyi-Ez-7Ml" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="vxz-OL-i0V"/>
-                                                </constraints>
-                                            </stackView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MqZ-f5-CZh" userLabel="First Name">
+                                                <rect key="frame" x="0.0" y="0.0" width="198.5" height="34"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="firstName"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="given-name"/>
+                                                <connections>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="eg2-lt-trE"/>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="r3J-mh-VL1"/>
+                                                </connections>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FName error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3PV-RQ-Xyj" userLabel="FName error message">
+                                                <rect key="frame" x="0.0" y="62" width="198.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KNM-65-nxK" userLabel="Last Name">
+                                                <rect key="frame" x="0.0" y="110.5" width="198.5" height="34"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="lastName"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="family-name"/>
+                                                <connections>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="aXI-7p-zue"/>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="yJ0-Tz-41A"/>
+                                                </connections>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LName error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyi-Ez-7Ml" userLabel="LName error message">
+                                                <rect key="frame" x="0.0" y="172.5" width="198.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d77-SE-eBu">
+                                                <rect key="frame" x="0.0" y="221" width="198.5" height="34"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="email"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                                                <connections>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="1oL-8h-n4C"/>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="IK4-iA-UoF"/>
+                                                </connections>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDH-2x-tOw">
+                                                <rect key="frame" x="0.0" y="283" width="198.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="buB-wI-Ibq" userLabel="Password">
+                                                <rect key="frame" x="0.0" y="331.5" width="198.5" height="34"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="password"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
+                                                <connections>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="Sf0-1q-JEA"/>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="ZwU-6i-FGn"/>
+                                                </connections>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sy2-Jb-gQ3" userLabel="Password error message">
+                                                <rect key="frame" x="0.0" y="393.5" width="198.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gzh-ch-2Z6" userLabel="rPassword">
+                                                <rect key="frame" x="0.0" y="442" width="198.5" height="34"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="rPassword"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                                                <connections>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingDidEnd" id="Lzu-Zt-uw4"/>
+                                                    <action selector="textFieldTextChanged:" destination="jmP-hS-uEo" eventType="editingChanged" id="pxY-6K-p5l"/>
+                                                </connections>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RPassword error message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n98-Hx-ewP" userLabel="RPassword error message">
+                                                <rect key="frame" x="0.0" y="504" width="198.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVR-9J-qON">
+                                                <rect key="frame" x="70.5" y="552.5" width="57" height="30"/>
+                                                <state key="normal" title="Register"/>
+                                                <connections>
+                                                    <action selector="registerPressed:" destination="jmP-hS-uEo" eventType="touchUpInside" id="fgq-Pf-FJa"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="800" id="E6E-yP-pxs"/>
-                                            <constraint firstItem="7cm-bD-ZqC" firstAttribute="centerX" secondItem="O0f-Az-PNc" secondAttribute="centerX" id="MqY-ml-Z84"/>
-                                            <constraint firstItem="7cm-bD-ZqC" firstAttribute="centerY" secondItem="O0f-Az-PNc" secondAttribute="centerY" id="RyT-MU-EuS"/>
-                                            <constraint firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" priority="750" constant="50" id="WQ6-gB-Br2"/>
-                                            <constraint firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" priority="750" constant="50" id="eBa-eL-nxv"/>
+                                            <constraint firstItem="n98-Hx-ewP" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="0vy-ky-ecK"/>
+                                            <constraint firstItem="3PV-RQ-Xyj" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="1gu-8s-7iQ"/>
+                                            <constraint firstItem="gzh-ch-2Z6" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="3ka-lo-gAl"/>
+                                            <constraint firstItem="gzh-ch-2Z6" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="8eZ-tJ-gCK"/>
+                                            <constraint firstItem="UDH-2x-tOw" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="9TU-H0-nRh"/>
+                                            <constraint firstItem="KNM-65-nxK" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="B1n-kb-l5r"/>
+                                            <constraint firstItem="oyi-Ez-7Ml" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="BDV-4M-HxQ"/>
+                                            <constraint firstItem="gzh-ch-2Z6" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="CHY-Hb-SAs"/>
+                                            <constraint firstItem="sy2-Jb-gQ3" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="EMc-06-KIw"/>
+                                            <constraint firstItem="MqZ-f5-CZh" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="F1S-JH-hOm"/>
+                                            <constraint firstItem="UDH-2x-tOw" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="GHa-qb-tCD"/>
+                                            <constraint firstItem="n98-Hx-ewP" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="GKf-wL-pmF"/>
+                                            <constraint firstItem="buB-wI-Ibq" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="GWU-JW-S01"/>
+                                            <constraint firstItem="buB-wI-Ibq" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="Hxz-3q-Hl6"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="Ixv-e6-C09"/>
+                                            <constraint firstItem="buB-wI-Ibq" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="Nne-M6-BCU"/>
+                                            <constraint firstItem="KNM-65-nxK" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="RrQ-b5-60T"/>
+                                            <constraint firstItem="d77-SE-eBu" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="SwJ-rV-Fnc"/>
+                                            <constraint firstItem="KNM-65-nxK" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="TMJ-vQ-78f"/>
+                                            <constraint firstItem="d77-SE-eBu" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="To5-3G-0ND"/>
+                                            <constraint firstItem="OVR-9J-qON" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="UGM-eU-saw"/>
+                                            <constraint firstItem="MqZ-f5-CZh" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="Z4V-nC-eAl"/>
+                                            <constraint firstItem="d77-SE-eBu" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="Zq3-DJ-Of6"/>
+                                            <constraint firstItem="oyi-Ez-7Ml" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="aV7-l1-wiE"/>
+                                            <constraint firstItem="sy2-Jb-gQ3" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="at1-6M-Ozm"/>
+                                            <constraint firstItem="sy2-Jb-gQ3" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="gF3-gW-Vhx"/>
+                                            <constraint firstItem="3PV-RQ-Xyj" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="jmf-Jv-FHb"/>
+                                            <constraint firstItem="3PV-RQ-Xyj" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="pXi-hX-rZ5"/>
+                                            <constraint firstItem="n98-Hx-ewP" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="r1y-8l-QeO"/>
+                                            <constraint firstItem="UDH-2x-tOw" firstAttribute="leading" secondItem="7cm-bD-ZqC" secondAttribute="leading" id="tOf-AG-Xhb"/>
+                                            <constraint firstItem="MqZ-f5-CZh" firstAttribute="trailing" secondItem="7cm-bD-ZqC" secondAttribute="trailing" id="uf1-Z1-N8l"/>
+                                            <constraint firstItem="oyi-Ez-7Ml" firstAttribute="centerX" secondItem="7cm-bD-ZqC" secondAttribute="centerX" id="vxz-OL-i0V"/>
                                         </constraints>
-                                    </view>
+                                    </stackView>
                                 </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="O0f-Az-PNc" firstAttribute="trailing" secondItem="ale-z5-yvC" secondAttribute="trailing" id="8UB-qy-B5a"/>
-                                    <constraint firstItem="O0f-Az-PNc" firstAttribute="top" secondItem="ale-z5-yvC" secondAttribute="top" id="MBu-Xb-Ou5"/>
-                                    <constraint firstItem="O0f-Az-PNc" firstAttribute="leading" secondItem="ale-z5-yvC" secondAttribute="leading" id="drb-V9-tHQ"/>
-                                    <constraint firstItem="O0f-Az-PNc" firstAttribute="bottom" secondItem="ale-z5-yvC" secondAttribute="bottom" id="jt9-PJ-2m9"/>
-                                    <constraint firstItem="O0f-Az-PNc" firstAttribute="width" secondItem="SIW-y8-A7e" secondAttribute="width" id="zsd-MK-BQm"/>
+                                    <constraint firstItem="7cm-bD-ZqC" firstAttribute="centerX" secondItem="O0f-Az-PNc" secondAttribute="centerX" id="MqY-ml-Z84"/>
+                                    <constraint firstItem="7cm-bD-ZqC" firstAttribute="centerY" secondItem="O0f-Az-PNc" secondAttribute="centerY" id="RyT-MU-EuS"/>
                                 </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="ale-z5-yvC"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="SIW-y8-A7e"/>
-                            </scrollView>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="joc-hG-O51"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hZJ-K3-Whr" firstAttribute="trailing" secondItem="joc-hG-O51" secondAttribute="trailing" id="6fl-8X-2Bi"/>
-                            <constraint firstItem="hZJ-K3-Whr" firstAttribute="leading" secondItem="joc-hG-O51" secondAttribute="leading" id="QER-6L-1L8"/>
-                            <constraint firstItem="hZJ-K3-Whr" firstAttribute="top" secondItem="joc-hG-O51" secondAttribute="top" id="g5A-b1-wGI"/>
-                            <constraint firstItem="hZJ-K3-Whr" firstAttribute="bottom" secondItem="joc-hG-O51" secondAttribute="bottom" id="pPk-0n-I4b"/>
+                            <constraint firstItem="O0f-Az-PNc" firstAttribute="leading" secondItem="joc-hG-O51" secondAttribute="leading" id="F58-7a-NCJ"/>
+                            <constraint firstItem="joc-hG-O51" firstAttribute="bottom" secondItem="O0f-Az-PNc" secondAttribute="bottom" id="QKL-hn-3g6"/>
+                            <constraint firstItem="O0f-Az-PNc" firstAttribute="top" secondItem="joc-hG-O51" secondAttribute="top" id="Qlb-dH-eEA"/>
+                            <constraint firstItem="O0f-Az-PNc" firstAttribute="trailing" secondItem="joc-hG-O51" secondAttribute="trailing" id="yEk-TN-XTM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mZj-p4-FMo"/>
@@ -203,7 +186,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9yL-K1-n2e" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fqc-gK-SPz">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

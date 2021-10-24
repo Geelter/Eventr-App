@@ -10,6 +10,9 @@
 		6100BBD2272421430087E51D /* SettingsSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100BBD1272421430087E51D /* SettingsSections.swift */; };
 		6100BBD8272433090087E51D /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100BBD6272433090087E51D /* SettingCell.swift */; };
 		6100BBD9272433090087E51D /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6100BBD7272433090087E51D /* SettingCell.xib */; };
+		6100BBE9272543430087E51D /* FirestoreErrorCodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100BBE8272543430087E51D /* FirestoreErrorCodeExtension.swift */; };
+		6100BBEE272567C40087E51D /* CredentialTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100BBED272567C40087E51D /* CredentialTypes.swift */; };
+		6100BBF3272578540087E51D /* AuthErrorCodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100BBF2272578540087E51D /* AuthErrorCodeExtension.swift */; };
 		61092208271C36C6005B9436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61092207271C36C6005B9436 /* AppDelegate.swift */; };
 		6109220A271C36C6005B9436 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61092209271C36C6005B9436 /* SceneDelegate.swift */; };
 		61092211271C36C8005B9436 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61092210271C36C8005B9436 /* Assets.xcassets */; };
@@ -88,6 +91,9 @@
 		6100BBD1272421430087E51D /* SettingsSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSections.swift; sourceTree = "<group>"; };
 		6100BBD6272433090087E51D /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		6100BBD7272433090087E51D /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
+		6100BBE8272543430087E51D /* FirestoreErrorCodeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreErrorCodeExtension.swift; sourceTree = "<group>"; };
+		6100BBED272567C40087E51D /* CredentialTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialTypes.swift; sourceTree = "<group>"; };
+		6100BBF2272578540087E51D /* AuthErrorCodeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorCodeExtension.swift; sourceTree = "<group>"; };
 		61092204271C36C6005B9436 /* Eventr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eventr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61092207271C36C6005B9436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61092209271C36C6005B9436 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -334,6 +340,7 @@
 				61092250271C37CF005B9436 /* Address.swift */,
 				6109224F271C37CF005B9436 /* FetchParameters.swift */,
 				6100BBD1272421430087E51D /* SettingsSections.swift */,
+				6100BBED272567C40087E51D /* CredentialTypes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -409,6 +416,8 @@
 			children = (
 				6109226F271C37CF005B9436 /* UIViewControllerExtension.swift */,
 				61092270271C37CF005B9436 /* UIViewExtension.swift */,
+				6100BBE8272543430087E51D /* FirestoreErrorCodeExtension.swift */,
+				6100BBF2272578540087E51D /* AuthErrorCodeExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -705,6 +714,7 @@
 				6109227E271C37CF005B9436 /* InitialViewController.swift in Sources */,
 				61092289271C37CF005B9436 /* Rule.swift in Sources */,
 				61092281271C37CF005B9436 /* Event.swift in Sources */,
+				6100BBEE272567C40087E51D /* CredentialTypes.swift in Sources */,
 				6100BBD2272421430087E51D /* SettingsSections.swift in Sources */,
 				61092279271C37CF005B9436 /* AddressSearchViewController.swift in Sources */,
 				615937F92721A264001C6C12 /* JoinedEventsViewController.swift in Sources */,
@@ -722,9 +732,11 @@
 				6109227A271C37CF005B9436 /* SignInViewController.swift in Sources */,
 				611B731E271DC6FB009D9200 /* UserEventsViewController.swift in Sources */,
 				61F4A314272404B9007881B8 /* SettingsViewController.swift in Sources */,
+				6100BBF3272578540087E51D /* AuthErrorCodeExtension.swift in Sources */,
 				61092298271C37CF005B9436 /* UIViewExtension.swift in Sources */,
 				6100BBD8272433090087E51D /* SettingCell.swift in Sources */,
 				61092284271C37CF005B9436 /* FirebaseAuthManager.swift in Sources */,
+				6100BBE9272543430087E51D /* FirestoreErrorCodeExtension.swift in Sources */,
 				61092288271C37CF005B9436 /* Validator.swift in Sources */,
 				61F4A3042722F94C007881B8 /* EventDetailsViewController.swift in Sources */,
 				61092208271C36C6005B9436 /* AppDelegate.swift in Sources */,
@@ -919,7 +931,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fivepastdeadline.Eventr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -939,7 +951,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fivepastdeadline.Eventr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

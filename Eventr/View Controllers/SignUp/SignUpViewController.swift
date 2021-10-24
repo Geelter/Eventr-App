@@ -109,23 +109,8 @@ class SignUpViewController: UIViewController {
 
 //MARK: - Extensions
 extension SignUpViewController: FirebaseAuthManagerAuthDelegate {
-    func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ error: Error) {
-        guard let errorCode = AuthErrorCode(rawValue: error._code) else {return}
-        
-        var message: String!
-        
-        switch errorCode {
-        case .invalidEmail:
-            message = "Invalid email"
-        case .emailAlreadyInUse:
-            message = "Email already in use"
-        case .weakPassword:
-            message = "Password too weak"
-        default:
-            message = "Error during registration attempt: \(error)"
-        }
-        
-        let errorAlert = AlertManager.shared.createErrorAlert(title: "Error during signup attempt", message: message)
+    func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ errorMessage: String) {
+        let errorAlert = AlertManager.shared.createInformationAlert(title: "Error during signup attempt", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }
     

@@ -14,30 +14,36 @@ struct FirestoreManager {
     
     let db = Firestore.firestore()
     
-    func saveEvent(_ event: Event, from delegate: FirestoreManagerDelegate) {
+    func saveEvent(_ event: Event, from delegate: FirestoreManagerSaveDelegate) {
         do {
             try db.collection("events").document(event.eventID).setData(from: event)
             delegate.didSaveEvent(self, event)
         } catch {
-            delegate.didFailWithError(self, error: error)
+            guard let errMessage = FirestoreErrorCode(rawValue: error._code)?.getErrorMessage() else {return}
+            delegate.didFailWithError(self, errorMessage: errMessage)
         }
     }
     
-    func deleteEvent(_ event: Event, from delegate: FirestoreManagerDelegate) {
+    func deleteEvent(_ event: Event, from delegate: FirestoreManagerDeleteDelegate) {
         db.collection("events").document(event.eventID).delete() { err in
-            guard err == nil else { delegate.didFailWithError(self, error: err); return }
-            
-            delegate.didDeleteEvent(self)
+            if err != nil {
+                guard let errMessage = FirestoreErrorCode(rawValue: err!._code)?.getErrorMessage() else {return}
+                delegate.didFailWithError(self, errorMessage: errMessage)
+            } else {
+                delegate.didDeleteEvent(self)
+            }
         }
     }
     
-    func fetchEvents(with fetchParameters: FetchParameters, from delegate: FirestoreManagerDelegate) {
+    func fetchEvents(with fetchParameters: FetchParameters, from delegate: FirestoreManagerFetchDelegate) {
         var events = [Event]()
-        
         let query = constructQuery(from: fetchParameters)
         
         query.getDocuments { (querySnapshot, err) in
-            guard err == nil else {delegate.didFailWithError(self, error: err); return}
+            if err != nil {
+                guard let errMessage = FirestoreErrorCode(rawValue: err!._code)?.getErrorMessage() else {return}
+                delegate.didFailWithError(self, errorMessage: errMessage)
+            }
             
             guard let documents = querySnapshot?.documents else {return}
             
@@ -84,24 +90,23 @@ struct FirestoreManager {
 }
 
 //MARK: - Protocols
-protocol FirestoreManagerDelegate {
+protocol FirestoreFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event])
-    func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event)
-    func didDeleteEvent(_ firestoreManager: FirestoreManager)
-    func didFailWithError(_ firestoreManager: FirestoreManager, error: Error?)
 }
 
-//protocol FirestoreSaveDelegate {
-//    func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event)
-//}
-//
-//protocol FirestoreFetchDelegate {
-//    func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event])
-//}
-//
-//protocol FirestoreErrorDelegate {
-//    func didFailWithError(_ firestoreManager: FirestoreManager, error: Error?)
-//}
-//
-//typealias FirestoreManagerFetchDelegate = FirestoreFetchDelegate & FirestoreErrorDelegate
-//typealias FirestoreManagerSaveDelegate = FirestoreSaveDelegate & FirestoreErrorDelegate
+protocol FirestoreSaveDelegate {
+    func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event)
+}
+
+protocol FirestoreDeleteDelegate {
+    func didDeleteEvent(_ firestoreManager: FirestoreManager)
+}
+
+protocol FirestoreErrorDelegate {
+    func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String)
+}
+
+typealias FirestoreManagerFetchDelegate = FirestoreFetchDelegate & FirestoreErrorDelegate
+typealias FirestoreManagerSaveDelegate = FirestoreSaveDelegate & FirestoreErrorDelegate
+typealias FirestoreManagerDeleteDelegate = FirestoreDeleteDelegate & FirestoreErrorDelegate
+typealias FirestoreManagerCompleteDelegate = FirestoreFetchDelegate & FirestoreSaveDelegate & FirestoreDeleteDelegate & FirestoreErrorDelegate

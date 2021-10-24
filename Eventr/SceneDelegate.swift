@@ -56,12 +56,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
     
-//    func setRootViewController(_ viewController: UIViewController /*, _ user: User? = nil*/) {
-//        if let window = self.window {
-//            window.rootViewController = viewController
-//        }
-//    }
-    
     func setRootViewController(to rootController: RootViewControllers) {
         switch rootController {
         case .initial:
@@ -73,7 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
             let tabBarController = storyboard.instantiateViewController(identifier: "TabBarController")
             window?.rootViewController = tabBarController
-            window?.rootViewController?.tabBarController?.viewControllers?.forEach { let _ = $0.view }
+            //window?.rootViewController?.tabBarController?.viewControllers?.forEach { let _ = $0.view }
             window?.makeKeyAndVisible()
         }
     }

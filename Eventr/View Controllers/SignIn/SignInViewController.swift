@@ -57,20 +57,9 @@ class SignInViewController: UIViewController {
 
 //MARK: - Extensions
 extension SignInViewController: FirebaseAuthManagerAuthDelegate {
-    func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ error: Error) {
-        guard let errorCode = AuthErrorCode(rawValue: error._code) else {return}
+    func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ errorMessage: String) {
         
-        var message: String!
-        
-        switch errorCode {
-        case .wrongPassword:
-            message = "Wrong password"
-        case .userNotFound:
-            message = "No user with this email address"
-        default:
-            message = "Error during login attempt: \(error)"
-        }
-        let errorAlert = AlertManager.shared.createErrorAlert(title: "Error during signin attempt", message: message)
+        let errorAlert = AlertManager.shared.createInformationAlert(title: "Error during signin attempt", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }
     

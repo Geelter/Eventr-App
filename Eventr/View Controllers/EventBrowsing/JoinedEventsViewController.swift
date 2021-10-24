@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseAuth
+import FirebaseFirestore
 
 class JoinedEventsViewController: EventViewController {
     
@@ -44,14 +44,14 @@ class JoinedEventsViewController: EventViewController {
     }
     
     //MARK: - TableView Delegate methods
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: K.Segues.joinedToDetail, sender: self)
     }
     
     //MARK: - Segue related methods
     @IBAction func unwindToBrowse(unwindSegue: UIStoryboardSegue) {
         guard let source = unwindSegue.source as? EventDetailsViewController else {return}
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         events[source.eventIndex] = source.event
         delegate?.didChangeParticipation(self, for: source.event)
         events = events.filter { $0.participants.contains(uid) }
@@ -78,29 +78,21 @@ class JoinedEventsViewController: EventViewController {
     }
     
     func fetchEvents() {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         let fetchParameters = FetchParameters(fieldName: "participants", fieldValue: uid, fetchOperator: .arrayContains /* , orderField: "date", orderDescending: false */)
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
 }
 
 //MARK: - Extensions
-extension JoinedEventsViewController: FirestoreManagerDelegate {
+extension JoinedEventsViewController: FirestoreManagerFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
         tableView.reloadData()
     }
-    
-    func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
-        
-    }
-    
-    func didDeleteEvent(_ firestoreManager: FirestoreManager) {
-        
-    }
-    
-    func didFailWithError(_ firestoreManager: FirestoreManager, error: Error?) {
-        let errorAlert = AlertManager.shared.createErrorAlert(title: "Error fetching events", message: error!.localizedDescription)
+
+    func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        let errorAlert = AlertManager.shared.createInformationAlert(title: "Error fetching events", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }
 }

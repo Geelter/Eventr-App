@@ -234,7 +234,6 @@
 				6109225A271C37CF005B9436 /* Validation */,
 				6109226E271C37CF005B9436 /* Extensions */,
 				6109226D271C37CF005B9436 /* GoogleService-Info.plist */,
-				61092271271C37CF005B9436 /* K.swift */,
 				61092210271C36C8005B9436 /* Assets.xcassets */,
 				61092212271C36C8005B9436 /* LaunchScreen.storyboard */,
 				61092215271C36C8005B9436 /* Info.plist */,
@@ -334,6 +333,7 @@
 		6109224E271C37CF005B9436 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				61092271271C37CF005B9436 /* K.swift */,
 				61092252271C37CF005B9436 /* Form Data */,
 				61092251271C37CF005B9436 /* Event.swift */,
 				61092259271C37CF005B9436 /* EventTypes.swift */,

@@ -38,6 +38,7 @@ class EventEditingViewController: EventManipulationViewController {
     func updateEvent() {
         guard let title = eventTitle.text else {return}
         let event = Event(updatedTitle: title, updatedtype: eventType, updatedDate: datePicker.date, updatedAddress: address, originalEvent: self.event)
+        self.showActivityIndicator()
         FirestoreManager.shared.saveEvent(event, from: self)
     }
     
@@ -120,11 +121,13 @@ extension EventEditingViewController: UIPickerViewDataSource {
 //MARK: - Firestore Manager delegation
 extension EventEditingViewController: FirestoreManagerSaveDelegate {
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
+        self.hideActivityIndicator()
         self.event = event
         performSegue(withIdentifier: K.Segues.unwindToManage, sender: self)
     }
 
     func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error saving event", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }

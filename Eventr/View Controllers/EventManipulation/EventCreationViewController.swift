@@ -67,6 +67,7 @@ class EventCreationViewController: EventManipulationViewController {
         if let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid, let title = eventTitle.text {
             let event = Event(creatorUID: uid, title: title, type: eventType, date: datePicker.date, address: address!)
             self.event = event
+            self.showActivityIndicator()
             FirestoreManager.shared.saveEvent(event, from: self)
         }
     }
@@ -105,10 +106,12 @@ extension EventCreationViewController: UIPickerViewDataSource {
 //MARK: - Firestore Manager delegation
 extension EventCreationViewController: FirestoreManagerSaveDelegate {
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
+        self.hideActivityIndicator()
         performSegue(withIdentifier: K.Segues.unwindToManage, sender: self)
     }
 
     func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error saving event", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }

@@ -56,6 +56,7 @@ class SignUpViewController: UIViewController {
     @IBAction func registerPressed(_ sender: UIButton) {
         if validateUserInput() != 0 {print("validation failed")}
         let signUpData = trimInput(from: inputViews)
+        self.showActivityIndicator()
         FirebaseAuthManager.shared.register(with: signUpData, from: self)
     }
     
@@ -112,11 +113,13 @@ class SignUpViewController: UIViewController {
 //MARK: - FirebaseAuth Manager delegation
 extension SignUpViewController: FirebaseAuthManagerAuthDelegate {
     func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ errorMessage: String) {
+        self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error during signup attempt", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }
     
     func authenticationSuccessful(_ firebaseAuthManager: FirebaseAuthManager) {
+        self.hideActivityIndicator()
         transitionToTabBar()
     }
     

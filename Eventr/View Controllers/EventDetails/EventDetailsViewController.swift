@@ -48,6 +48,7 @@ class EventDetailsViewController: UIViewController {
             }
         participationAttempted = true
         }
+        self.showActivityIndicator()
         FirestoreManager.shared.saveEvent(event, from: self)
     }
     
@@ -76,10 +77,12 @@ class EventDetailsViewController: UIViewController {
 //MARK: - Firestore Manager delegation
 extension EventDetailsViewController: FirestoreManagerSaveDelegate {
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
+        self.hideActivityIndicator()
         performSegue(withIdentifier: K.Segues.unwindToBrowse, sender: self)
     }
 
     func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        self.hideActivityIndicator()
         let alert = AlertManager.shared.createInformationAlert(title: "Error declaring event participation", message: errorMessage, cancelTitle: "Dismiss")
         present(alert, animated: true)
     }

@@ -70,6 +70,7 @@ class SettingsViewController: UIViewController {
             case .password:
                 FirebaseAuthManager.shared.reauthenticateUser(email: email, password: currentPassword, change: .password, to: newValue, from: self)
             }
+            self.showActivityIndicator()
             self.currentAlert = nil
             action.isEnabled = false
         })
@@ -181,6 +182,7 @@ extension SettingsViewController: FirebaseAuthManagerCompleteDelegate {
     }
     
     func userProfilePropertyChangeSuccessful(_ firebaseAuthManager: FirebaseAuthManager, propertyName: String) {
+        self.hideActivityIndicator()
         tableView.reloadData()
         let changeAlert = AlertManager.shared.createInformationAlert(title: "\(propertyName) changed", message: "", cancelTitle: "Dismiss")
         present(changeAlert, animated: true)
@@ -191,6 +193,7 @@ extension SettingsViewController: FirebaseAuthManagerCompleteDelegate {
     }
     
     func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ errorMessage: String) {
+        self.hideActivityIndicator()
         let alert = AlertManager.shared.createInformationAlert(title: "Error", message: errorMessage, cancelTitle: "Dismiss")
         present(alert, animated: true)
     } 

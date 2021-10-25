@@ -79,7 +79,8 @@ class JoinedEventsViewController: EventViewController {
     
     private func fetchEvents() {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
-        let fetchParameters = FetchParameters(fieldName: "participants", fieldValue: uid, fetchOperator: .arrayContains /* , orderField: "date", orderDescending: false */)
+        let fetchParameters = FetchParameters(fieldName: "participants", fieldValue: uid, fetchOperator: .arrayContains)
+        self.showActivityIndicator()
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
 }
@@ -89,11 +90,13 @@ class JoinedEventsViewController: EventViewController {
 //MARK: - Firestore Manager delegation
 extension JoinedEventsViewController: FirestoreManagerFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
+        self.hideActivityIndicator()
         self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
         tableView.reloadData()
     }
 
     func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error fetching events", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }

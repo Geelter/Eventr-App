@@ -114,6 +114,7 @@ class LocalEventsViewController: EventViewController {
     //MARK: - Helper methods
     private func fetchEvents(for city: String) {
         let fetchParameters = FetchParameters(fieldName: "city", fieldValue: city, fetchOperator: .equalTo)
+        self.showActivityIndicator()
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
     
@@ -157,6 +158,7 @@ class LocalEventsViewController: EventViewController {
 //MARK: - Firestore Manager delegation
 extension LocalEventsViewController: FirestoreManagerFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
+        self.hideActivityIndicator()
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         let filteredEvents = events.filter { $0.creatorUID != uid }
         self.events = filteredEvents.sorted(by: { $0.dateObject < $1.dateObject })
@@ -164,6 +166,7 @@ extension LocalEventsViewController: FirestoreManagerFetchDelegate {
     }
 
     func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error fetching events", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }

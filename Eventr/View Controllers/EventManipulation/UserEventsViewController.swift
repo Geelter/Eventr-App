@@ -26,10 +26,12 @@ class UserEventsViewController: EventViewController {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         print(uid)
         let fetchParameters = FetchParameters(fieldName: "creatorUID", fieldValue: uid, fetchOperator: .equalTo)
+        self.showActivityIndicator()
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
     
     func deleteEvent(_ event: Event) {
+        self.showActivityIndicator()
         FirestoreManager.shared.deleteEvent(event, from: self)
     }
 
@@ -115,6 +117,7 @@ class UserEventsViewController: EventViewController {
 //MARK: - Firestore Manager delegation
 extension UserEventsViewController: FirestoreManagerFetchDelegate, FirestoreDeleteDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
+        self.hideActivityIndicator()
         self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
         tableView.reloadData()
     }
@@ -122,12 +125,14 @@ extension UserEventsViewController: FirestoreManagerFetchDelegate, FirestoreDele
     func didDeleteEvent(_ firestoreManager: FirestoreManager) {
         guard let eventIndex = tableView.indexPathForSelectedRow else {return}
         
+        self.hideActivityIndicator()
         events.remove(at: eventIndex.row)
         tableView.deselectRow(at: eventIndex, animated: true)
         tableView.reloadData()
     }
     
     func didFailWithError(_ firestoreManager: FirestoreManager, errorMessage: String) {
+        self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error fetching events", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }

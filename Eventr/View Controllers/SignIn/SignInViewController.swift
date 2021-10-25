@@ -35,6 +35,7 @@ class SignInViewController: UIViewController {
     //MARK: - IBActions
     @IBAction func loginPressed(_ sender: UIButton) {
         let signInData = trimInput(from: inputViews)
+        self.showActivityIndicator()
         FirebaseAuthManager.shared.login(with: signInData, from: self)
     }
     
@@ -60,12 +61,13 @@ class SignInViewController: UIViewController {
 //MARK: - FirebaseAuth Manager delegation
 extension SignInViewController: FirebaseAuthManagerAuthDelegate {
     func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ errorMessage: String) {
-        
+        self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error during signin attempt", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
     }
     
     func authenticationSuccessful(_ firebaseAuthManager: FirebaseAuthManager) {
+        self.hideActivityIndicator()
         transitionToTabBar()
     }
     

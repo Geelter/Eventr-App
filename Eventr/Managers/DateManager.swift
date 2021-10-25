@@ -33,11 +33,4 @@ struct DateManager {
         
         return dateFormatter.string(from: date)
     }
-    
-    func getDateComponents(from date: Date) -> DateComponents {
-        let unitFlags: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .weekday, .timeZone]
-        let components = Calendar.current.dateComponents(unitFlags, from: date)
-        
-        return components
-    }
 }

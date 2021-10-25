@@ -56,6 +56,8 @@ class SignInViewController: UIViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - FirebaseAuth Manager delegation
 extension SignInViewController: FirebaseAuthManagerAuthDelegate {
     func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ errorMessage: String) {
         
@@ -68,12 +70,12 @@ extension SignInViewController: FirebaseAuthManagerAuthDelegate {
     }
     
     func signOutSuccessful(_ firebaseAuthManager: FirebaseAuthManager) {
-        
+        // Not called
     }
 }
 
+//MARK: - TextField Delegate
 extension SignInViewController: UITextFieldDelegate {
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case emailField:

@@ -33,7 +33,7 @@ class UserEventsViewController: EventViewController {
         FirestoreManager.shared.deleteEvent(event, from: self)
     }
 
-    // MARK: - Table view data source
+    // MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.isEmpty ? 1 : events.count
     }
@@ -54,7 +54,7 @@ class UserEventsViewController: EventViewController {
         }
     }
     
-    //MARK: - Table view delegate methods
+    //MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectionAlert = AlertManager.shared.createEventInteractionEvent()
         setUpAlertActions(for: selectionAlert, from: indexPath)
@@ -111,16 +111,14 @@ class UserEventsViewController: EventViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - Firestore Manager delegation
 extension UserEventsViewController: FirestoreManagerFetchDelegate, FirestoreDeleteDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
         tableView.reloadData()
     }
 
-//    func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
-//
-//    }
-    
     func didDeleteEvent(_ firestoreManager: FirestoreManager) {
         guard let eventIndex = tableView.indexPathForSelectedRow else {return}
         

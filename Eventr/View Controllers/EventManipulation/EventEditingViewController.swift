@@ -93,6 +93,8 @@ class EventEditingViewController: EventManipulationViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - PickerView Delegate
 extension EventEditingViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         eventType = EventTypes.allCases[row]
@@ -100,6 +102,7 @@ extension EventEditingViewController: UIPickerViewDelegate {
     }
 }
 
+//MARK: - PickerView DataSource
 extension EventEditingViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -114,6 +117,7 @@ extension EventEditingViewController: UIPickerViewDataSource {
     }
 }
 
+//MARK: - Firestore Manager delegation
 extension EventEditingViewController: FirestoreManagerSaveDelegate {
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
         self.event = event

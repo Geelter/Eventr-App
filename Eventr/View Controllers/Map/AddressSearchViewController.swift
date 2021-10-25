@@ -27,12 +27,14 @@ class AddressSearchViewController: UIViewController {
         searchResultsTable.dataSource = self
     }
     
-    func getAddress(from placemark: MKPlacemark) {
+    private func getAddress(from placemark: MKPlacemark) {
         address = Address(from: placemark)
     }
 }
 
 //MARK: - Extensions
+
+//MARK: - LocalSearchCompleter Delegate
 extension AddressSearchViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
@@ -45,30 +47,14 @@ extension AddressSearchViewController: MKLocalSearchCompleterDelegate {
     }
 }
 
+//MARK: - SearchBar Delegate
 extension AddressSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchCompleter.queryFragment = searchText
     }
 }
 
-extension AddressSearchViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let result = searchResults[indexPath.row]
-        let searchRequest = MKLocalSearch.Request(completion: result)
-        
-        let search = MKLocalSearch(request: searchRequest)
-        search.start { (response, error) in
-            guard let placemark = response?.mapItems.first?.placemark else {return}
-            
-            self.getAddress(from: placemark)
-            
-            self.performSegue(withIdentifier: K.Segues.unwindToMap, sender: self)
-        }
-    }
-}
-
+//MARK: - TableView DataSource Delegate
 extension AddressSearchViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -87,5 +73,24 @@ extension AddressSearchViewController: UITableViewDataSource {
         cell.detailTextLabel?.text = searchResult.subtitle
         
         return cell
+    }
+}
+
+//MARK: - TableView Delegate
+extension AddressSearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let result = searchResults[indexPath.row]
+        let searchRequest = MKLocalSearch.Request(completion: result)
+        
+        let search = MKLocalSearch(request: searchRequest)
+        search.start { (response, error) in
+            guard let placemark = response?.mapItems.first?.placemark else {return}
+            
+            self.getAddress(from: placemark)
+            
+            self.performSegue(withIdentifier: K.Segues.unwindToMap, sender: self)
+        }
     }
 }

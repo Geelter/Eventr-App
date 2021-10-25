@@ -34,36 +34,4 @@ struct AlertManager {
         
         return alert
     }
-    
-    func createProfileUpdateAlert(optionDescription: String) -> UIAlertController {
-        let alert = UIAlertController(title: "Change \(optionDescription)", message: nil, preferredStyle: .alert)
-        
-        alert.addTextField { textField in
-            textField.placeholder = "Enter new \(optionDescription)"
-        }
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        return alert
-    }
-    
-    func createCredentialChangeAlert(for credentialType: CredentialTypes) -> UIAlertController {
-        let alert = UIAlertController(title: "Change your \(credentialType.rawValue)", message: "Enter your new \(credentialType.rawValue) and current password", preferredStyle: .alert)
-                
-        alert.addTextField { textField in
-            textField.placeholder = "New \(credentialType.rawValue)"
-            textField.isSecureTextEntry = true
-            textField.returnKeyType = .continue
-        }
-        
-        alert.addTextField { textField in
-            textField.placeholder = "Current password"
-            textField.isSecureTextEntry = true
-            textField.returnKeyType = .done
-        }
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        return alert
-    }
 }

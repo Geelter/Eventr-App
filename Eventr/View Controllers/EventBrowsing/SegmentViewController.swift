@@ -23,8 +23,8 @@ class SegmentViewController: UIViewController {
         setupView()
     }
     
-    //MARK: - ViewController setup
-    lazy var localEventsViewController: LocalEventsViewController = {
+    //MARK: - Child ViewControllers setup
+    private lazy var localEventsViewController: LocalEventsViewController = {
         let storyboard = UIStoryboard(name: "EventBrowsing", bundle: Bundle.main)
         
         var viewController = storyboard.instantiateViewController(withIdentifier: "LocalEventsViewController") as! LocalEventsViewController
@@ -34,7 +34,7 @@ class SegmentViewController: UIViewController {
         return viewController
     }()
     
-    lazy var joinedEventsViewController: JoinedEventsViewController = {
+    private lazy var joinedEventsViewController: JoinedEventsViewController = {
         let storyboard = UIStoryboard(name: "EventBrowsing", bundle: Bundle.main)
         
         var viewController = storyboard.instantiateViewController(withIdentifier: "JoinedEventsViewController") as! JoinedEventsViewController
@@ -44,13 +44,13 @@ class SegmentViewController: UIViewController {
         return viewController
     }()
     
-    func setupView() {
+    private func setupView() {
         setupSegmentedControl()
         
         updateView()
     }
     
-    func setupSegmentedControl() {
+    private func setupSegmentedControl() {
         segmentedControl.removeAllSegments()
         segmentedControl.insertSegment(withTitle: "Local", at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: "Joined", at: 1, animated: false)
@@ -62,7 +62,7 @@ class SegmentViewController: UIViewController {
         updateView()
     }
     
-    func updateView() {
+    private func updateView() {
         if segmentedControl.selectedSegmentIndex == 0 {
             self.remove(child: joinedEventsViewController)
             self.embed(localEventsViewController, inView: containerView)
@@ -73,6 +73,7 @@ class SegmentViewController: UIViewController {
     }
 }
 
+//MARK: - Protocol for communication between child view controllers
 protocol EventCrossReferenceDelegate {
     func didChangeParticipation(_ eventViewController: EventViewController, for event: Event)
 }

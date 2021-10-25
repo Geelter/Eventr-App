@@ -11,8 +11,9 @@ import FirebaseAuth
 struct FirebaseAuthManager {
     static let shared = FirebaseAuthManager()
     
-    let authRef = Auth.auth()
+    private let authRef = Auth.auth()
     
+    //MARK: - Authentication related methods
     func login(with signInForm: SignInForm, from delegate: FirebaseAuthManagerAuthDelegate) {
         authRef.signIn(withEmail: signInForm.email, password: signInForm.password) { (authResult, error) in
             if error != nil {
@@ -26,7 +27,8 @@ struct FirebaseAuthManager {
     
     func register(with signUpForm: SignUpForm, from delegate: FirebaseAuthManagerAuthDelegate) {
         authRef.createUser(withEmail: signUpForm.email, password: signUpForm.password) { (authResult, error) in
-            if let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() {
+            if error != nil {
+                guard let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() else {return}
                 delegate.didFailWithError(self, errorMessage)
             }
             
@@ -43,13 +45,15 @@ struct FirebaseAuthManager {
         }
     }
     
-    func reauthenticateUser(email: String, password: String, change credentialType: CredentialTypes, to newValue: String, from delegate: FirebaseAuthManagerCompleteDelegate) {
+    func reauthenticateUser(email: String, password: String, change profileProperty: UserProfileProperties, to newValue: String, from delegate: FirebaseAuthManagerCompleteDelegate) {
         guard let user = getCurrentUser() else {return}
         let credential: AuthCredential = EmailAuthProvider.credential(withEmail: email, password: password)
         
         user.reauthenticate(with: credential, completion: { (authResult, error) in
             guard error == nil else {return}
-            switch credentialType {
+            switch profileProperty {
+            case .displayName:
+                updateDisplayName(to: newValue, from: delegate)
             case .email:
                 updateUserEmail(with: newValue, from: delegate)
             case .password:
@@ -71,41 +75,42 @@ struct FirebaseAuthManager {
         }
     }
     
+    //MARK: - User profile related methods
     func getCurrentUser() -> User? {
         return authRef.currentUser
     }
     
-    func updateDisplayName(to displayName: String, from delegate: FirebaseAuthManagerCredentialDelegate) {
+    func updateDisplayName(to displayName: String, from delegate: FirebaseAuthManagerProfilePropertyDelegate) {
         let changeRequest = authRef.currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = displayName
         changeRequest?.commitChanges { error in
-            if error == nil {
-                delegate.displayNameChangeSuccessful(self)
-            } else {
+            if error != nil {
                 guard let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() else {return}
                 delegate.didFailWithError(self, errorMessage)
+            } else {
+                delegate.userProfilePropertyChangeSuccessful(self, propertyName: "Display name")
             }
         }
     }
     
-    func updateUserEmail(with email: String, from delegate: FirebaseAuthManagerCredentialDelegate) {
+    func updateUserEmail(with email: String, from delegate: FirebaseAuthManagerProfilePropertyDelegate) {
         authRef.currentUser?.updateEmail(to: email, completion: { error in
             if error != nil {
                 guard let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() else {return}
                 delegate.didFailWithError(self, errorMessage)
             } else {
-                delegate.emailChangeSuccessful(self)
+                delegate.userProfilePropertyChangeSuccessful(self, propertyName: "Email")
             }
         })
     }
     
-    func updateUserPassword(with password: String, from delegate: FirebaseAuthManagerCredentialDelegate) {
+    func updateUserPassword(with password: String, from delegate: FirebaseAuthManagerProfilePropertyDelegate) {
         authRef.currentUser?.updatePassword(to: password, completion: { error in
             if error != nil {
                 guard let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() else {return}
                 delegate.didFailWithError(self, errorMessage)
             } else {
-                delegate.passwordChangeSuccessful(self)
+                delegate.userProfilePropertyChangeSuccessful(self, propertyName: "Password")
             }
         })
     }
@@ -117,10 +122,8 @@ protocol FirebaseAuthUserDelegate {
     func signOutSuccessful(_ firebaseAuthManager: FirebaseAuthManager)
 }
 
-protocol FirebaseAuthCredentialDelegate {
-    func displayNameChangeSuccessful(_ firebaseAuthManager: FirebaseAuthManager)
-    func emailChangeSuccessful(_ firebaseAuthManager: FirebaseAuthManager)
-    func passwordChangeSuccessful(_ firebaseAuthManager: FirebaseAuthManager)
+protocol FirebaseAuthProfilePropertyDelegate {
+    func userProfilePropertyChangeSuccessful(_ firebaseAuthManager: FirebaseAuthManager, propertyName: String)
 }
 
 protocol FirebaseAuthErrorDelegate {
@@ -128,7 +131,7 @@ protocol FirebaseAuthErrorDelegate {
 }
 
 typealias FirebaseAuthManagerAuthDelegate = FirebaseAuthUserDelegate & FirebaseAuthErrorDelegate
-typealias FirebaseAuthManagerCredentialDelegate = FirebaseAuthCredentialDelegate & FirebaseAuthErrorDelegate
-typealias FirebaseAuthManagerCompleteDelegate = FirebaseAuthUserDelegate & FirebaseAuthCredentialDelegate & FirebaseAuthErrorDelegate
+typealias FirebaseAuthManagerProfilePropertyDelegate = FirebaseAuthProfilePropertyDelegate & FirebaseAuthErrorDelegate
+typealias FirebaseAuthManagerCompleteDelegate = FirebaseAuthUserDelegate & FirebaseAuthProfilePropertyDelegate & FirebaseAuthErrorDelegate
 
 

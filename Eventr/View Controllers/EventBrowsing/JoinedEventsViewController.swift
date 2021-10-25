@@ -70,14 +70,14 @@ class JoinedEventsViewController: EventViewController {
 
     
     //MARK: - Helper methods
-    func setUpTableView() {
+    private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: K.TableViews.eventCellNibName, bundle: nil), forCellReuseIdentifier: K.TableViews.eventCellIdentifier)
     }
     
-    func fetchEvents() {
+    private func fetchEvents() {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         let fetchParameters = FetchParameters(fieldName: "participants", fieldValue: uid, fetchOperator: .arrayContains /* , orderField: "date", orderDescending: false */)
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
@@ -85,6 +85,8 @@ class JoinedEventsViewController: EventViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - Firestore Manager delegation
 extension JoinedEventsViewController: FirestoreManagerFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
@@ -97,6 +99,7 @@ extension JoinedEventsViewController: FirestoreManagerFetchDelegate {
     }
 }
 
+//MARK: - EventCrossReference Delegate
 extension JoinedEventsViewController: EventCrossReferenceDelegate {
     func didChangeParticipation(_ eventViewController: EventViewController, for event: Event) {
         let eventIndex = events.firstIndex { $0.eventID == event.eventID }

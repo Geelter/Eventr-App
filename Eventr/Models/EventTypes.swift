@@ -20,9 +20,9 @@ extension EventTypes {
         case .hobby:
             return UIImage(systemName: "gamecontroller.fill")
         case .dinner:
-            return UIImage(systemName: "fork.knife.circle")
+            return UIImage(systemName: "figure.walk")
         case .bar:
-            return UIImage(systemName: "cup.and.saucer.fill")
+            return UIImage(systemName: "figure.walk")
         case .movie:
             return UIImage(systemName: "film.fill")
         case .sightseeing:

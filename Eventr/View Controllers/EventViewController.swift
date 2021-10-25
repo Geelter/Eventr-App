@@ -38,6 +38,8 @@ class EventViewController: UIViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - TableView DataSource
 extension EventViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -52,6 +54,7 @@ extension EventViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - TableView Delegate
 extension EventViewController: UITableViewDelegate {
 
 }

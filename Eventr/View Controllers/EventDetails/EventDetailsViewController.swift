@@ -60,7 +60,7 @@ class EventDetailsViewController: UIViewController {
     }
     
     //MARK: - Helper methods
-    func fillElements(using event: Event) {
+    private func fillElements(using event: Event) {
         typeIcon.image = event.type.getIconForType()
         typeLabel.text = event.type.rawValue
         titleLabel.text = event.title
@@ -72,6 +72,8 @@ class EventDetailsViewController: UIViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - Firestore Manager delegation
 extension EventDetailsViewController: FirestoreManagerSaveDelegate {
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
         performSegue(withIdentifier: K.Segues.unwindToBrowse, sender: self)

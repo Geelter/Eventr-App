@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 struct FirestoreManager {
     static let shared = FirestoreManager()
     
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
     
     func saveEvent(_ event: Event, from delegate: FirestoreManagerSaveDelegate) {
         do {
@@ -67,7 +67,7 @@ struct FirestoreManager {
     }
     
     //MARK: - Helper methods
-    func constructQuery(from fetchParameters: FetchParameters) -> Query {
+    private func constructQuery(from fetchParameters: FetchParameters) -> Query {
         let collectionRef = db.collection("events")
         var query: Query!
         

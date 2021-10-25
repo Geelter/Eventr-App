@@ -108,6 +108,8 @@ class SignUpViewController: UIViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - FirebaseAuth Manager delegation
 extension SignUpViewController: FirebaseAuthManagerAuthDelegate {
     func didFailWithError(_ firebaseAuthManager: FirebaseAuthManager, _ errorMessage: String) {
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error during signup attempt", message: errorMessage, cancelTitle: "Dismiss")
@@ -119,12 +121,12 @@ extension SignUpViewController: FirebaseAuthManagerAuthDelegate {
     }
     
     func signOutSuccessful(_ firebaseAuthManager: FirebaseAuthManager) {
-        
+        // Not called
     }
 }
 
+//MARK: - TextField Delegate
 extension SignUpViewController: UITextFieldDelegate {
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case fNameField:

@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum CredentialTypes: String {
+enum UserProfileProperties: String {
     case email
     case password
+    case displayName = "display name"
 }

@@ -61,7 +61,7 @@ class MapViewController: UIViewController {
     
     
     //MARK: - Location Services related methods
-    func checkLocationServices() {
+    private func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
             setupLocationManager()
             checkLocationPermissions()
@@ -72,11 +72,11 @@ class MapViewController: UIViewController {
         }
     }
     
-    func setupLocationManager() {
+    private func setupLocationManager() {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
-    func checkLocationPermissions() {
+    private func checkLocationPermissions() {
         switch locationManager.authorizationStatus {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
@@ -96,18 +96,18 @@ class MapViewController: UIViewController {
     }
     
     //MARK: - MapView related methods
-    func centerMapOnUser() {
+    private func centerMapOnUser() {
         if let userLocation = locationManager.location?.coordinate {
             centerMap(on: userLocation)
         }
     }
     
-    func centerMap(on location: CLLocationCoordinate2D, zoom: Double = 1) {
+    private func centerMap(on location: CLLocationCoordinate2D, zoom: Double = 1) {
         let region = MKCoordinateRegion.init(center: location, latitudinalMeters: (regionInMeters / zoom), longitudinalMeters: (regionInMeters / zoom))
         mapView.setRegion(region, animated: true)
     }
     
-    func createAnnotation(for mapView: MKMapView, using address: Address) {
+    private func createAnnotation(for mapView: MKMapView, using address: Address) {
         let annotation = MKPointAnnotation()
         annotation.title = "\(address.addressDetail), \(address.city)"
         annotation.coordinate = address.coordinate
@@ -124,12 +124,12 @@ class MapViewController: UIViewController {
     }
     
     //MARK: - Helper methods
-    func showMapAnnotation(for address: Address) {
+    private func showMapAnnotation(for address: Address) {
         createAnnotation(for: mapView, using: address)
         centerMap(on: address.coordinate)
     }
     
-    func hideButtons() {
+    private func hideButtons() {
         searchIcon.isHidden = true
         searchButton.isHidden = true
         checkIcon.isHidden = true
@@ -138,6 +138,8 @@ class MapViewController: UIViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - MapView Delegate
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKPointAnnotation else {return nil}
@@ -155,6 +157,7 @@ extension MapViewController: MKMapViewDelegate {
     }
 }
 
+//MARK: - CLLocationManager Delegate
 extension MapViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationPermissions()

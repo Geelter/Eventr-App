@@ -74,7 +74,7 @@ class LocalEventsViewController: EventViewController {
     }
     
     //MARK: - Location services related methods
-    func checkLocationPermission() {
+    private func checkLocationPermission() {
         switch locationManager.authorizationStatus {
         case .authorizedWhenInUse:
             setUpLocationManager()
@@ -112,24 +112,24 @@ class LocalEventsViewController: EventViewController {
     }
     
     //MARK: - Helper methods
-    func fetchEvents(for city: String) {
-        let fetchParameters = FetchParameters(fieldName: "city", fieldValue: city, fetchOperator: .equalTo /* , orderField: "date", orderDescending: false */)
+    private func fetchEvents(for city: String) {
+        let fetchParameters = FetchParameters(fieldName: "city", fieldValue: city, fetchOperator: .equalTo)
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
     
-    func setUpTableView() {
+    private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: K.TableViews.eventCellNibName, bundle: nil), forCellReuseIdentifier: K.TableViews.eventCellIdentifier)
     }
     
-    func setUpLocationManager() {
+    private func setUpLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
-    func setUpAlertTextfieldAction(for alert: UIAlertController) {
+    private func setUpAlertTextfieldAction(for alert: UIAlertController) {
         alert.addAction(UIAlertAction(title: "Use textfield", style: .default, handler: { [weak self, weak alert] action in
             guard let city = alert?.textFields?.first?.text else {return}
             
@@ -138,7 +138,7 @@ class LocalEventsViewController: EventViewController {
         }))
     }
     
-    func setUpAlertCLAction(for alert: UIAlertController) {
+    private func setUpAlertCLAction(for alert: UIAlertController) {
         guard let location = locationManager.location else {return}
         alert.addAction(UIAlertAction(title: "Use device location", style: .default, handler: { [weak self] action in
             let geocoder = CLGeocoder()
@@ -153,6 +153,8 @@ class LocalEventsViewController: EventViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - Firestore Manager delegation
 extension LocalEventsViewController: FirestoreManagerFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
@@ -167,6 +169,7 @@ extension LocalEventsViewController: FirestoreManagerFetchDelegate {
     }
 }
 
+//MARK: - CLLocationManager Delegate
 extension LocalEventsViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationPermission()
@@ -181,6 +184,7 @@ extension LocalEventsViewController: CLLocationManagerDelegate {
     }
 }
 
+//MARK: - EventCrossReference Delegate
 extension LocalEventsViewController: EventCrossReferenceDelegate {
     func didChangeParticipation(_ eventViewController: EventViewController, for event: Event) {
         let eventIndex = events.firstIndex { $0.eventID == event.eventID }

@@ -78,6 +78,8 @@ class EventCreationViewController: EventManipulationViewController {
 }
 
 //MARK: - Extensions
+
+//MARK: - PickerView Delegate
 extension EventCreationViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         eventType = EventTypes.allCases[row]
@@ -85,6 +87,7 @@ extension EventCreationViewController: UIPickerViewDelegate {
     }
 }
 
+//MARK: - PickerView DataSource
 extension EventCreationViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -99,6 +102,7 @@ extension EventCreationViewController: UIPickerViewDataSource {
     }
 }
 
+//MARK: - Firestore Manager delegation
 extension EventCreationViewController: FirestoreManagerSaveDelegate {
     func didSaveEvent(_ firestoreManager: FirestoreManager, _ event: Event) {
         performSegue(withIdentifier: K.Segues.unwindToManage, sender: self)

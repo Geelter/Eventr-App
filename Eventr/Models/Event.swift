@@ -27,9 +27,9 @@ struct Event: Codable {
         return DateManager.shared.dateFromString(using: date)!
     }
 
-    enum CodingKeys: String, CodingKey {
-        case creatorUID, eventID, title, type, date, city, addressDetail, location, participants
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case creatorUID, eventID, title, type, date, city, addressDetail, location, participants
+//    }
     
     init(creatorUID: String, title: String, type: EventTypes, date: Date, address: Address) {
         self.creatorUID = creatorUID
@@ -55,56 +55,56 @@ struct Event: Codable {
         eventID = originalEvent.eventID
     }
     
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        creatorUID = try values.decode(String.self, forKey: .creatorUID)
-        eventID = try values.decode(String.self, forKey: .eventID)
-        title = try values.decode(String.self, forKey: .title)
-        type = try values.decode(EventTypes.self, forKey: .type)
-        date = try values.decode(String.self, forKey: .date)
-        city = try values.decode(String.self, forKey: .city)
-        addressDetail = try values.decode(String.self, forKey: .addressDetail)
-        location = try values.decode(Geopoint.self, forKey: .location)
-        participants = try values.decode([String].self, forKey: .participants)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(creatorUID, forKey: .creatorUID)
-        try container.encode(eventID, forKey: .eventID)
-        try container.encode(title, forKey: .title)
-        try container.encode(type, forKey: .type)
-        try container.encode(date, forKey: .date)
-        try container.encode(city, forKey: .city)
-        try container.encode(addressDetail, forKey: .addressDetail)
-        try container.encode(location, forKey: .location)
-        try container.encode(participants, forKey: .participants)
-    }
+//    init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        creatorUID = try values.decode(String.self, forKey: .creatorUID)
+//        eventID = try values.decode(String.self, forKey: .eventID)
+//        title = try values.decode(String.self, forKey: .title)
+//        type = try values.decode(EventTypes.self, forKey: .type)
+//        date = try values.decode(String.self, forKey: .date)
+//        city = try values.decode(String.self, forKey: .city)
+//        addressDetail = try values.decode(String.self, forKey: .addressDetail)
+//        location = try values.decode(Geopoint.self, forKey: .location)
+//        participants = try values.decode([String].self, forKey: .participants)
+//    }
+//
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(creatorUID, forKey: .creatorUID)
+//        try container.encode(eventID, forKey: .eventID)
+//        try container.encode(title, forKey: .title)
+//        try container.encode(type, forKey: .type)
+//        try container.encode(date, forKey: .date)
+//        try container.encode(city, forKey: .city)
+//        try container.encode(addressDetail, forKey: .addressDetail)
+//        try container.encode(location, forKey: .location)
+//        try container.encode(participants, forKey: .participants)
+//    }
 }
 
 struct Geopoint: Codable {
     var longitude: Double
     var latitude: Double
     
-    enum CodingKeys: String, CodingKey {
-        case longitude, latitude
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case longitude, latitude
+//    }
     
     init(from coordinate: CLLocationCoordinate2D) {
         self.longitude = coordinate.longitude
         self.latitude = coordinate.latitude
     }
     
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        latitude = try values.decode(Double.self, forKey: .latitude)
-        longitude = try values.decode(Double.self, forKey: .longitude)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(latitude, forKey: .latitude)
-        try container.encode(longitude, forKey: .longitude)
-    }
+//    init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        latitude = try values.decode(Double.self, forKey: .latitude)
+//        longitude = try values.decode(Double.self, forKey: .longitude)
+//    }
+//
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(latitude, forKey: .latitude)
+//        try container.encode(longitude, forKey: .longitude)
+//    }
 }
 

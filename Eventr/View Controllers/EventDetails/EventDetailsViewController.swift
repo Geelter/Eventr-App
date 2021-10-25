@@ -26,11 +26,12 @@ class EventDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         fillElements(using: event)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         participationAttempted = false
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        participationAttempted = false
+//    }
     
     //MARK: - IBActions
     @IBAction func showOnMapPressed(_ sender: UIButton) {

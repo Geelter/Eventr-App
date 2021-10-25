@@ -34,4 +34,8 @@ struct AlertManager {
         
         return alert
     }
+    
+//    func createEventFetchErrorAlert(repeat) {
+//        
+//    }
 }

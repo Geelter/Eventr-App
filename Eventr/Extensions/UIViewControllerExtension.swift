@@ -36,5 +36,6 @@ extension UIViewController {
     
     func hideActivityIndicator() {
         indicatorBackgroundView?.removeFromSuperview()
+        indicatorBackgroundView = nil
     }
 }

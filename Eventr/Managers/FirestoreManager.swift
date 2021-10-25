@@ -19,7 +19,7 @@ struct FirestoreManager {
             try db.collection("events").document(event.eventID).setData(from: event)
             delegate.didSaveEvent(self, event)
         } catch {
-            guard let errMessage = FirestoreErrorCode(rawValue: error._code)?.getErrorMessage() else {return}
+            let errMessage = FirestoreErrorCode(rawValue: error._code)?.getErrorMessage() ?? "Error occurred. Try again."
             delegate.didFailWithError(self, errorMessage: errMessage)
         }
     }
@@ -27,7 +27,7 @@ struct FirestoreManager {
     func deleteEvent(_ event: Event, from delegate: FirestoreManagerDeleteDelegate) {
         db.collection("events").document(event.eventID).delete() { err in
             if err != nil {
-                guard let errMessage = FirestoreErrorCode(rawValue: err!._code)?.getErrorMessage() else {return}
+                let errMessage = FirestoreErrorCode(rawValue: err!._code)?.getErrorMessage() ?? "Error occurred. Try again."
                 delegate.didFailWithError(self, errorMessage: errMessage)
             } else {
                 delegate.didDeleteEvent(self)
@@ -41,7 +41,7 @@ struct FirestoreManager {
         
         query.getDocuments { (querySnapshot, err) in
             if err != nil {
-                guard let errMessage = FirestoreErrorCode(rawValue: err!._code)?.getErrorMessage() else {return}
+                let errMessage = FirestoreErrorCode(rawValue: err!._code)?.getErrorMessage() ?? "Error occurred. Try again."
                 delegate.didFailWithError(self, errorMessage: errMessage)
             }
             

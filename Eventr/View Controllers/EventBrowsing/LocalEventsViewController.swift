@@ -17,15 +17,16 @@ class LocalEventsViewController: EventViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let locationManager = CLLocationManager()
+    var crossReferenceDelegate: EventCrossReferenceDelegate?
     var events = [Event]()
     let locationAlert = AlertManager.shared.createLocationAlert()
     var askedForLocation = false
-    var delegate: EventCrossReferenceDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpAlertTextfieldAction(for: locationAlert)
+        setUpAlertCLAction(for: locationAlert)
         if CLLocationManager.locationServicesEnabled() {
             checkLocationPermission()
         }
@@ -36,7 +37,7 @@ class LocalEventsViewController: EventViewController {
     override func viewDidAppear(_ animated: Bool) {
         if !askedForLocation {
             if locationManager.authorizationStatus == .authorizedWhenInUse {
-                setUpAlertCLAction(for: locationAlert)
+                locationAlert.actions[1].isEnabled = true
             }
             present(locationAlert, animated: true)
             askedForLocation = true
@@ -80,12 +81,16 @@ class LocalEventsViewController: EventViewController {
             setUpLocationManager()
             locationManager.requestLocation()
         case .denied:
-            let deniedAlert = AlertManager.shared.createInformationAlert(title: "Eventr was denied location access", message: "To use this apps full capabilities go to your location services settings and allow this app access to device location while in use", cancelTitle: "I understand")
+            let deniedAlert = AlertManager.shared.createInformationAlert(title: "Eventr was denied location access",
+                                                                         message: "To use this apps full capabilities go to your location services settings and allow this app access to device location while in use",
+                                                                         cancelTitle: "I understand")
             present(deniedAlert, animated: true)
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            let restrictedAlert = AlertManager.shared.createInformationAlert(title: "Use of location services restricted", message: "Your device may use parental controls to restrict use of location services. Request for permissions to use this apps full capabilities.", cancelTitle: "I understand")
+            let restrictedAlert = AlertManager.shared.createInformationAlert(title: "Use of location services restricted",
+                                                                             message: "Your device may use parental controls to restrict use of location services. Request for permissions to use this apps full capabilities.",
+                                                                             cancelTitle: "I understand")
             present(restrictedAlert, animated: true)
         case .authorizedAlways:
             break
@@ -97,7 +102,7 @@ class LocalEventsViewController: EventViewController {
         guard let source = unwindSegue.source as? EventDetailsViewController else {return}
         
         events[source.eventIndex] = source.event
-        delegate?.didChangeParticipation(self, for: source.event)
+        crossReferenceDelegate?.didChangeParticipation(self, for: source.event)
         tableView.reloadData()
     }
     
@@ -141,7 +146,7 @@ class LocalEventsViewController: EventViewController {
     
     private func setUpAlertCLAction(for alert: UIAlertController) {
         guard let location = locationManager.location else {return}
-        alert.addAction(UIAlertAction(title: "Use device location", style: .default, handler: { [weak self] action in
+        let locationAction = UIAlertAction(title: "Use device location", style: .default, handler: { [weak self] action in
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 guard error == nil else {return}
@@ -149,7 +154,9 @@ class LocalEventsViewController: EventViewController {
                 self?.cityNameLabel.text = locality
                 self?.fetchEvents(for: locality)
             }
-        }))
+        })
+        locationAction.isEnabled = false
+        alert.addAction(locationAction)
     }
 }
 
@@ -183,7 +190,8 @@ extension LocalEventsViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error getting location")
+        let alert = AlertManager.shared.createInformationAlert(title: "Error trying to get location", message: "", cancelTitle: "Dismiss")
+        present(alert, animated: true)
     }
 }
 

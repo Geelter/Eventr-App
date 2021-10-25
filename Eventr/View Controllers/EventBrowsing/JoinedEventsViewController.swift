@@ -14,7 +14,7 @@ class JoinedEventsViewController: EventViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var events = [Event]()
-    var delegate: EventCrossReferenceDelegate?
+    var crossReferenceDelegate: EventCrossReferenceDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class JoinedEventsViewController: EventViewController {
         guard let source = unwindSegue.source as? EventDetailsViewController else {return}
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         events[source.eventIndex] = source.event
-        delegate?.didChangeParticipation(self, for: source.event)
+        crossReferenceDelegate?.didChangeParticipation(self, for: source.event)
         events = events.filter { $0.participants.contains(uid) }
         tableView.reloadData()
     }

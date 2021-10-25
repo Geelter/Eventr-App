@@ -17,8 +17,8 @@ class SegmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        localEventsViewController.delegate = joinedEventsViewController
-        joinedEventsViewController.delegate = localEventsViewController
+        localEventsViewController.crossReferenceDelegate = joinedEventsViewController
+        joinedEventsViewController.crossReferenceDelegate = localEventsViewController
 
         setupView()
     }

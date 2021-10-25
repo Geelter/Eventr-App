@@ -24,7 +24,7 @@ class UserEventsViewController: EventViewController {
     
     func fetchEvents() {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
-        print(uid)
+        //print(uid)
         let fetchParameters = FetchParameters(fieldName: "creatorUID", fieldValue: uid, fetchOperator: .equalTo)
         self.showActivityIndicator()
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)

@@ -14,7 +14,19 @@
   * Controlls toggled on/off based on the controller user is accessing the map from
   * Current location displayed if location services enabled and authorization granted by user (otherwise an alert with information regarding the use of location services presented to user)
 * Address search from user provided query
+* Displaying activity indicators for the duration of network reliant actions
+* Getting the location for event fetch through an alert
+  * Using either a user provided string or device location based on the selected alert action
 * Settings panel based on segmented Table View
   * Interactable cells displaying current values of user profile properties (excluding password)
   * On tapping the accessory button an alert for editing the selected property gets presented (performing the change requires the user to provide current password)
-* 
+
+# To Do
+
+* Limiting the number of documents per fetch and paginating the Table View
+* Archiving events
+* Displaying participants in event cells
+* Implementing app specific local settings
+* Password reset view
+* Filtering fetched events by different parameters
+ 

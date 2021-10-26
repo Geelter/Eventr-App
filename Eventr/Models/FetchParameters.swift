@@ -8,9 +8,21 @@
 import Foundation
 
 struct FetchParameters {
-    let fieldName: String
+    let fieldName: FieldNames
     let fieldValue: Any
     let fetchOperator: FetchOperators
+    let sortBy: FieldNames
+    let sortDescending: Bool
+    //let documentLimit: Int
+    
+    enum FieldNames: String {
+        case creatorUID
+        case eventID
+        case city
+        case date
+        case type
+        case participants
+    }
     
     enum FetchOperators: String {
         case lessThanOrEqual
@@ -19,9 +31,12 @@ struct FetchParameters {
         case arrayContains
     }
     
-    init(fieldName: String, fieldValue: Any, fetchOperator: FetchOperators) {
+    init(fieldName: FieldNames, fieldValue: Any, fetchOperator: FetchOperators, sortBy: FieldNames, sortDescending: Bool /*, documentLimit: Int */) {
         self.fieldName = fieldName
         self.fieldValue = fieldValue
         self.fetchOperator = fetchOperator
+        self.sortBy = sortBy
+        self.sortDescending = sortDescending
+        //self.documentLimit = documentLimit
     }
 }

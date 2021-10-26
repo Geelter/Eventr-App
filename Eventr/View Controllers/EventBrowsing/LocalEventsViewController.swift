@@ -49,31 +49,6 @@ class LocalEventsViewController: EventViewController {
         present(locationAlert, animated: true)
     }
     
-    //MARK: - TableView DataSource methods
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.isEmpty ? 1 : events.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if events.isEmpty {
-            let cellMessage = "No events matching the criteria could be fetched."
-            
-            return setUpInformationCell(withMessage: cellMessage)
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
-            let event = events[indexPath.row]
-            
-            fillElements(of: cell, using: event)
-
-            return cell
-        }
-    }
-    
-    //MARK: - TableView Delegate methods
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: K.Segues.localToDetail, sender: self)
-    }
-    
     //MARK: - Location services related methods
     private func checkLocationPermission() {
         switch locationManager.authorizationStatus {
@@ -118,7 +93,7 @@ class LocalEventsViewController: EventViewController {
     
     //MARK: - Helper methods
     private func fetchEvents(for city: String) {
-        let fetchParameters = FetchParameters(fieldName: "city", fieldValue: city, fetchOperator: .equalTo)
+        let fetchParameters = FetchParameters(fieldName: .city, fieldValue: city, fetchOperator: .equalTo, sortBy: .date, sortDescending: false)
         self.showActivityIndicator()
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
@@ -167,8 +142,8 @@ extension LocalEventsViewController: FirestoreManagerFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.hideActivityIndicator()
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
-        let filteredEvents = events.filter { $0.creatorUID != uid }
-        self.events = filteredEvents.sorted(by: { $0.dateObject < $1.dateObject })
+        //self.events = filteredEvents.sorted(by: { $0.dateObject < $1.dateObject })
+        self.events = events.filter { $0.creatorUID != uid }
         tableView.reloadData()
     }
 
@@ -176,6 +151,39 @@ extension LocalEventsViewController: FirestoreManagerFetchDelegate {
         self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error fetching events", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
+    }
+}
+
+//MARK: - TableView DataSource
+extension LocalEventsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.isEmpty ? 1 : events.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if events.isEmpty {
+            let cellMessage = "No events matching the criteria could be fetched."
+            
+            return setUpInformationCell(withMessage: cellMessage)
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
+            let event = events[indexPath.row]
+            let uid = FirebaseAuthManager.shared.getCurrentUser()!.uid
+            cell.fillElements(using: event, uid: uid)
+
+            return cell
+        }
+    }
+}
+
+//MARK: - TableView Delegate
+extension LocalEventsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: K.Segues.localToDetail, sender: self)
     }
 }
 

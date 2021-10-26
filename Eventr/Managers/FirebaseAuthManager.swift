@@ -85,7 +85,7 @@ struct FirebaseAuthManager {
         changeRequest?.displayName = displayName
         changeRequest?.commitChanges { error in
             if error != nil {
-                guard let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() else {return}
+                let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() ?? "Error. Try again."
                 delegate.didFailWithError(self, errorMessage)
             } else {
                 delegate.userProfilePropertyChangeSuccessful(self, propertyName: "Display name")
@@ -96,7 +96,7 @@ struct FirebaseAuthManager {
     func updateUserEmail(with email: String, from delegate: FirebaseAuthManagerProfilePropertyDelegate) {
         authRef.currentUser?.updateEmail(to: email, completion: { error in
             if error != nil {
-                guard let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() else {return}
+                let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() ?? "Error. Try again."
                 delegate.didFailWithError(self, errorMessage)
             } else {
                 delegate.userProfilePropertyChangeSuccessful(self, propertyName: "Email")
@@ -107,7 +107,7 @@ struct FirebaseAuthManager {
     func updateUserPassword(with password: String, from delegate: FirebaseAuthManagerProfilePropertyDelegate) {
         authRef.currentUser?.updatePassword(to: password, completion: { error in
             if error != nil {
-                guard let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() else {return}
+                let errorMessage = AuthErrorCode.init(rawValue: error!._code)?.getErrorMessage() ?? "Error. Try again."
                 delegate.didFailWithError(self, errorMessage)
             } else {
                 delegate.userProfilePropertyChangeSuccessful(self, propertyName: "Password")

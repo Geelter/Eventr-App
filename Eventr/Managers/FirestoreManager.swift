@@ -74,17 +74,22 @@ struct FirestoreManager {
         let fieldName = fetchParameters.fieldName
         let fieldValue = fetchParameters.fieldValue
         let fetchOperator = fetchParameters.fetchOperator
+        let sortBy = fetchParameters.sortBy
+        let sortDescending = fetchParameters.sortDescending
+        //let documentLimit = fetchParameters.documentLimit
         
         switch fetchOperator {
         case .equalTo:
-            query = collectionRef.whereField(fieldName, isEqualTo: fieldValue)
+            query = collectionRef.whereField(fieldName.rawValue, isEqualTo: fieldValue)
         case .greaterThanOrEqual:
-            query = collectionRef.whereField(fieldName, isGreaterThan: fieldValue)
+            query = collectionRef.whereField(fieldName.rawValue, isGreaterThan: fieldValue)
         case .lessThanOrEqual:
-            query = collectionRef.whereField(fieldName, isLessThan: fieldValue)
+            query = collectionRef.whereField(fieldName.rawValue, isLessThan: fieldValue)
         case .arrayContains:
-            query = collectionRef.whereField(fieldName, arrayContains: fieldValue)
+            query = collectionRef.whereField(fieldName.rawValue, arrayContains: fieldValue)
         }
+        query = query.order(by: sortBy.rawValue, descending: sortDescending)
+        
         return query
     }
 }

@@ -29,4 +29,14 @@ class EventCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func fillElements(using event: Event, uid: String) {
+        self.eventTitleLabel.text = event.title
+        self.eventDateLabel.text = DateManager.shared.getDateStringForCell(from: event.dateObject)
+        self.eventAddressLabel.text = event.addressDetail
+        self.eventTypeIcon.image = event.type.getIconForType()
+        self.eventAddressIcon.image = UIImage(systemName: "map.fill")
+        self.eventDateIcon.image = UIImage(systemName: "calendar")
+        self.eventFavouriteIcon.image = event.participants.contains(uid) ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
+    }
 }

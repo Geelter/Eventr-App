@@ -15,16 +15,6 @@ class EventViewController: UIViewController {
     }
 
     //MARK: - Helper methods
-    func fillElements(of cell: EventCell, using event: Event) {
-        cell.eventTitleLabel.text = event.title
-        cell.eventDateLabel.text = DateManager.shared.getDateStringForCell(from: event.dateObject)
-        cell.eventAddressLabel.text = event.addressDetail
-        cell.eventTypeIcon.image = event.type.getIconForType()
-        cell.eventAddressIcon.image = UIImage(systemName: "map.fill")
-        cell.eventDateIcon.image = UIImage(systemName: "calendar")
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        cell.eventFavouriteIcon.image = event.participants.contains(uid) ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
-    }
     
     func setUpInformationCell(withMessage message: String) -> UITableViewCell {
         let cell = UITableViewCell.init(style: .default, reuseIdentifier: K.TableViews.informationCellIdentifier)
@@ -35,26 +25,5 @@ class EventViewController: UIViewController {
         
         return cell
     }
-}
-
-//MARK: - Extensions
-
-//MARK: - TableView DataSource
-extension EventViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell(style: .default, reuseIdentifier: K.TableViews.informationCellIdentifier)
-    }
-}
-
-//MARK: - TableView Delegate
-extension EventViewController: UITableViewDelegate {
 
 }

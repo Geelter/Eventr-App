@@ -22,31 +22,6 @@ class JoinedEventsViewController: EventViewController {
         setUpTableView()
         fetchEvents()
     }
-
-    // MARK: - TableView DataSource methods
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.isEmpty ? 1 : events.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if events.isEmpty {
-            let cellMessage = "No events joined at this moment."
-            
-            return setUpInformationCell(withMessage: cellMessage)
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
-            let event = events[indexPath.row]
-            
-            fillElements(of: cell, using: event)
-
-            return cell
-        }
-    }
-    
-    //MARK: - TableView Delegate methods
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: K.Segues.joinedToDetail, sender: self)
-    }
     
     //MARK: - Segue related methods
     @IBAction func unwindToBrowse(unwindSegue: UIStoryboardSegue) {
@@ -79,7 +54,7 @@ class JoinedEventsViewController: EventViewController {
     
     private func fetchEvents() {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
-        let fetchParameters = FetchParameters(fieldName: "participants", fieldValue: uid, fetchOperator: .arrayContains)
+        let fetchParameters = FetchParameters(fieldName: .participants, fieldValue: uid, fetchOperator: .arrayContains, sortBy: .date, sortDescending: false)
         self.showActivityIndicator()
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
@@ -91,7 +66,7 @@ class JoinedEventsViewController: EventViewController {
 extension JoinedEventsViewController: FirestoreManagerFetchDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.hideActivityIndicator()
-        self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
+        self.events = events
         tableView.reloadData()
     }
 
@@ -99,6 +74,40 @@ extension JoinedEventsViewController: FirestoreManagerFetchDelegate {
         self.hideActivityIndicator()
         let errorAlert = AlertManager.shared.createInformationAlert(title: "Error fetching events", message: errorMessage, cancelTitle: "Dismiss")
         present(errorAlert, animated: true)
+    }
+}
+
+//MARK: - TableView DataSource
+extension JoinedEventsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.isEmpty ? 1 : events.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if events.isEmpty {
+            let cellMessage = "No events joined at this moment."
+            
+            return setUpInformationCell(withMessage: cellMessage)
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
+            let event = events[indexPath.row]
+            let uid = FirebaseAuthManager.shared.getCurrentUser()!.uid
+            
+            cell.fillElements(using: event, uid: uid)
+
+            return cell
+        }
+    }
+}
+
+//MARK: - TableView Delegate
+extension JoinedEventsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: K.Segues.joinedToDetail, sender: self)
     }
 }
 
@@ -113,7 +122,6 @@ extension JoinedEventsViewController: EventCrossReferenceDelegate {
         } else {
             events.remove(at: eventIndex!)
         }
-        
         tableView.reloadData()
     }
 }

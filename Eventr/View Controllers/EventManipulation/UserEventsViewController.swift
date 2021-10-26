@@ -24,8 +24,7 @@ class UserEventsViewController: EventViewController {
     
     func fetchEvents() {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
-        //print(uid)
-        let fetchParameters = FetchParameters(fieldName: "creatorUID", fieldValue: uid, fetchOperator: .equalTo)
+        let fetchParameters = FetchParameters(fieldName: .creatorUID, fieldValue: uid, fetchOperator: .equalTo, sortBy: .date, sortDescending: false)
         self.showActivityIndicator()
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
@@ -33,34 +32,6 @@ class UserEventsViewController: EventViewController {
     func deleteEvent(_ event: Event) {
         self.showActivityIndicator()
         FirestoreManager.shared.deleteEvent(event, from: self)
-    }
-
-    // MARK: - TableView DataSource
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.isEmpty ? 1 : events.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if events.isEmpty {
-            let cellMessage = "No personal events created."
-            
-            return setUpInformationCell(withMessage: cellMessage)
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
-            let event = events[indexPath.row]
-            
-            cell.eventFavouriteIcon.isHidden = true
-            fillElements(of: cell, using: event)
-
-            return cell
-        }
-    }
-    
-    //MARK: - TableView Delegate
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectionAlert = AlertManager.shared.createEventInteractionEvent()
-        setUpAlertActions(for: selectionAlert, from: indexPath)
-        present(selectionAlert, animated: true)
     }
     
     //MARK: - Segue related methods
@@ -118,7 +89,7 @@ class UserEventsViewController: EventViewController {
 extension UserEventsViewController: FirestoreManagerFetchDelegate, FirestoreDeleteDelegate {
     func didFetchEvents(_ firestoreManager: FirestoreManager, events: [Event]) {
         self.hideActivityIndicator()
-        self.events = events.sorted(by: { $0.dateObject < $1.dateObject })
+        self.events = events
         tableView.reloadData()
     }
 
@@ -137,3 +108,41 @@ extension UserEventsViewController: FirestoreManagerFetchDelegate, FirestoreDele
         present(errorAlert, animated: true)
     }
 }
+
+//MARK: - TableView DataSource
+extension UserEventsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.isEmpty ? 1 : events.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if events.isEmpty {
+            let cellMessage = "No personal events created."
+            
+            return setUpInformationCell(withMessage: cellMessage)
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
+            let event = events[indexPath.row]
+            let uid = FirebaseAuthManager.shared.getCurrentUser()!.uid
+            
+            cell.eventFavouriteIcon.isHidden = true
+            cell.fillElements(using: event, uid: uid)
+
+            return cell
+        }
+    }
+}
+
+//MARK: - TableView Delegate
+extension UserEventsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectionAlert = AlertManager.shared.createEventInteractionEvent()
+        setUpAlertActions(for: selectionAlert, from: indexPath)
+        present(selectionAlert, animated: true)
+    }
+}
+

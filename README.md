@@ -1,5 +1,7 @@
 # Eventr-App
 
+# [App functionality showcase](https://youtu.be/hRAXYQlB8f4)
+
 # Completed features
 
 * User input validation using regular expressions
@@ -29,4 +31,8 @@
 * Implementing app specific local settings
 * Password reset view
 * Filtering fetched events by different parameters
+* Deleting all events made by the user on account deletion
+* Sending all event participants notifications
+  * On change of any event field
+  * At set amount of time before event takes place
  

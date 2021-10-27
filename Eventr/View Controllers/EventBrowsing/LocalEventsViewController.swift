@@ -9,18 +9,18 @@ import UIKit
 import FirebaseFirestore
 import MapKit
 
-class LocalEventsViewController: EventViewController {
+class LocalEventsViewController: UIViewController {
     
     //MARK: - IBOutlets
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var changeCityButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    let locationManager = CLLocationManager()
     var crossReferenceDelegate: EventCrossReferenceDelegate?
-    var events = [Event]()
-    let locationAlert = AlertManager.shared.createLocationAlert()
-    var askedForLocation = false
+    private let locationManager = CLLocationManager()
+    private var events = [Event]()
+    private let locationAlert = AlertManager.shared.createLocationAlert()
+    private var askedForLocation = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,9 +166,9 @@ extension LocalEventsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if events.isEmpty {
-            let cellMessage = "No events matching the criteria could be fetched."
-            
-            return setUpInformationCell(withMessage: cellMessage)
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+            cell.textLabel?.text = "No personal events created"
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
             let event = events[indexPath.row]
@@ -205,7 +205,7 @@ extension LocalEventsViewController: CLLocationManagerDelegate {
 
 //MARK: - EventCrossReference Delegate
 extension LocalEventsViewController: EventCrossReferenceDelegate {
-    func didChangeParticipation(_ eventViewController: EventViewController, for event: Event) {
+    func didChangeParticipation(_ eventViewController: UIViewController, for event: Event) {
         let eventIndex = events.firstIndex { $0.eventID == event.eventID }
         
         if eventIndex != nil {

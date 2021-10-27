@@ -13,10 +13,10 @@ class SettingsViewController: UIViewController {
     //MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
-    var user = FirebaseAuthManager.shared.getCurrentUser()
-    var currentAlert: UIAlertController!
-    var firstTextFieldCorrect = false
-    var secondTextFieldCorrect = false
+    private var user = FirebaseAuthManager.shared.getCurrentUser()
+    private var currentAlert: UIAlertController!
+    private var firstTextFieldCorrect = false
+    private var secondTextFieldCorrect = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

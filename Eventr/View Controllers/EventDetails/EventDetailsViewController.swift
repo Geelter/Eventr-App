@@ -20,7 +20,7 @@ class EventDetailsViewController: UIViewController {
     
     var event: Event!
     var eventIndex: Int!
-    var participationAttempted: Bool!
+    private var participationAttempted: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()

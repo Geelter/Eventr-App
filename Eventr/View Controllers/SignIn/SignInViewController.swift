@@ -16,7 +16,7 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var emailMessage: UILabel!
     @IBOutlet weak var passwordMessage: UILabel!
     
-    var inputViews = [String: InputView]()
+    private var inputViews = [String: InputView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class SignInViewController: UIViewController {
     }
     
     //MARK: - Form Input Sanitazation
-    func trimInput(from inputViews: [String: InputView]) -> SignInForm {
+    private func trimInput(from inputViews: [String: InputView]) -> SignInForm {
         var formData = [String: String]()
         for (key, inputView) in inputViews {
             formData[key] = inputView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -51,7 +51,7 @@ class SignInViewController: UIViewController {
     }
 
     //MARK: - Navigation related methods
-    func transitionToTabBar() {
+    private func transitionToTabBar() {
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.setRootViewController(to: .tabBar)
     }
 }

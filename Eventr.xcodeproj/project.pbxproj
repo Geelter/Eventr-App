@@ -58,7 +58,6 @@
 		615937EC27207D8F001C6C12 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615937EB27207D8F001C6C12 /* AlertManager.swift */; };
 		615937F42721A256001C6C12 /* LocalEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615937F32721A256001C6C12 /* LocalEventsViewController.swift */; };
 		615937F92721A264001C6C12 /* JoinedEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615937F82721A264001C6C12 /* JoinedEventsViewController.swift */; };
-		615938062721C075001C6C12 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615938052721C075001C6C12 /* EventViewController.swift */; };
 		61B9327E271F2B700038BF75 /* EventManipulationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B9327D271F2B700038BF75 /* EventManipulationViewController.swift */; };
 		61F4A2FF2722F8FE007881B8 /* EventDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61F4A2FE2722F8FE007881B8 /* EventDetails.storyboard */; };
 		61F4A3042722F94C007881B8 /* EventDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4A3032722F94C007881B8 /* EventDetailsViewController.swift */; };
@@ -145,7 +144,6 @@
 		615937EB27207D8F001C6C12 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		615937F32721A256001C6C12 /* LocalEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalEventsViewController.swift; sourceTree = "<group>"; };
 		615937F82721A264001C6C12 /* JoinedEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinedEventsViewController.swift; sourceTree = "<group>"; };
-		615938052721C075001C6C12 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		61B9327D271F2B700038BF75 /* EventManipulationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManipulationViewController.swift; sourceTree = "<group>"; };
 		61F4A2FE2722F8FE007881B8 /* EventDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EventDetails.storyboard; sourceTree = "<group>"; };
 		61F4A3032722F94C007881B8 /* EventDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 		6109223D271C37CE005B9436 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				615938052721C075001C6C12 /* EventViewController.swift */,
 				6109224C271C37CE005B9436 /* Main */,
 				61092246271C37CE005B9436 /* SignIn */,
 				6109223E271C37CE005B9436 /* SignUp */,
@@ -706,7 +703,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				61B9327E271F2B700038BF75 /* EventManipulationViewController.swift in Sources */,
-				615938062721C075001C6C12 /* EventViewController.swift in Sources */,
 				61092285271C37CF005B9436 /* DateManager.swift in Sources */,
 				61092276271C37CF005B9436 /* EventEditingViewController.swift in Sources */,
 				6109227B271C37CF005B9436 /* SegmentViewController.swift in Sources */,

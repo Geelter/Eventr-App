@@ -22,7 +22,7 @@ class EventEditingViewController: EventManipulationViewController {
     var eventIndex: Int!
     
     var eventType = EventTypes.general
-    let saveConfirmAlert = AlertManager.shared.createInformationAlert(title: "Are you sure you want to save your changes?", message: "", cancelTitle: "Cancel")
+    private let saveConfirmAlert = AlertManager.shared.createInformationAlert(title: "Are you sure you want to save your changes?", message: "", cancelTitle: "Cancel")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class EventEditingViewController: EventManipulationViewController {
         eventTitle.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     }
     
-    func updateEvent() {
+    private func updateEvent() {
         guard let title = eventTitle.text else {return}
         let event = Event(updatedTitle: title, updatedtype: eventType, updatedDate: datePicker.date, updatedAddress: address, originalEvent: self.event)
         self.showActivityIndicator()
@@ -73,7 +73,7 @@ class EventEditingViewController: EventManipulationViewController {
     }
     
     //MARK: - Helper methods
-    func populateView() {
+    private func populateView() {
         eventTitle.text = event.title
         setTypePickerRow(to: event.type)
         datePicker.date = event.dateObject
@@ -81,12 +81,12 @@ class EventEditingViewController: EventManipulationViewController {
         eventAddress.text = event.addressDetail
     }
     
-    func setTypePickerRow(to eventType: EventTypes) {
+    private func setTypePickerRow(to eventType: EventTypes) {
         let typeIndex = EventTypes.allCases.firstIndex(of: eventType)
         typePicker.selectRow(typeIndex!, inComponent: 0, animated: true)
     }
     
-    func setUpAlertActions() {
+    private func setUpAlertActions() {
         saveConfirmAlert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] action in
             self?.updateEvent()
         }))

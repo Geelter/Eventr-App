@@ -18,7 +18,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var checkIcon: UIImageView!
     @IBOutlet weak var checkButton: UIButton!
     
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
     let regionInMeters: Double = 1250
     var address: Address?
     var showOnly = false

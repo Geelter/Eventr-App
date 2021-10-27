@@ -75,5 +75,5 @@ class SegmentViewController: UIViewController {
 
 //MARK: - Protocol for communication between child view controllers
 protocol EventCrossReferenceDelegate {
-    func didChangeParticipation(_ eventViewController: EventViewController, for event: Event)
+    func didChangeParticipation(_ eventViewController: UIViewController, for event: Event)
 }

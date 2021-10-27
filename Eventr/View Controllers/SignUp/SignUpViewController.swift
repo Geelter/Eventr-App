@@ -24,8 +24,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var rPasswordMessage: UILabel!
     
     let validator = Validator()
-    var inputViews = [String: InputView]()
-    var validationRules = [String: [Rule]]()
+    private var inputViews = [String: InputView]()
+    private var validationRules = [String: [Rule]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,7 @@ class SignUpViewController: UIViewController {
     }
     
     //MARK: - Form Input Sanitazation
-    func trimInput(from inputViews: [String: InputView]) -> SignUpForm {
+    private func trimInput(from inputViews: [String: InputView]) -> SignUpForm {
         var formData = [String: String]()
         for (key, inputView) in inputViews {
             formData[key] = inputView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -81,7 +81,7 @@ class SignUpViewController: UIViewController {
     }
     
     //MARK: - Validation related methods
-    func validateUserInput() -> Int {
+    private func validateUserInput() -> Int {
         var validationsFailed = 0
         
         for (key, inputView) in inputViews {
@@ -91,7 +91,7 @@ class SignUpViewController: UIViewController {
         return validationsFailed
     }
     
-    func passwordsMatch(pass1: InputView, pass2: InputView) -> Bool {
+    private func passwordsMatch(pass1: InputView, pass2: InputView) -> Bool {
         if pass1.textField.text! != pass2.textField.text {
             pass2.messageLabel.text = "Passwords must be identical"
             pass2.messageLabel.isHidden = false
@@ -103,7 +103,7 @@ class SignUpViewController: UIViewController {
     }
     
     //MARK: - Navigation related methods
-    func transitionToTabBar() {
+    private func transitionToTabBar() {
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.setRootViewController(to: .tabBar)
     }
 }

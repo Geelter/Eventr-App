@@ -8,12 +8,12 @@
 import UIKit
 import FirebaseFirestore
 
-class UserEventsViewController: EventViewController {
+class UserEventsViewController: UIViewController {
     
     //MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
-    var events = [Event]()
+    private var events = [Event]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +22,14 @@ class UserEventsViewController: EventViewController {
         fetchEvents()
     }
     
-    func fetchEvents() {
+    private func fetchEvents() {
         guard let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid else {return}
         let fetchParameters = FetchParameters(fieldName: .creatorUID, fieldValue: uid, fetchOperator: .equalTo, sortBy: .date, sortDescending: false)
         self.showActivityIndicator()
         FirestoreManager.shared.fetchEvents(with: fetchParameters, from: self)
     }
     
-    func deleteEvent(_ event: Event) {
+    private func deleteEvent(_ event: Event) {
         self.showActivityIndicator()
         FirestoreManager.shared.deleteEvent(event, from: self)
     }
@@ -61,14 +61,14 @@ class UserEventsViewController: EventViewController {
     }
     
     //MARK: - Helper methods
-    func setUpTableView() {
+    private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: K.TableViews.eventCellNibName, bundle: nil), forCellReuseIdentifier: K.TableViews.eventCellIdentifier)
     }
     
-    func setUpAlertActions(for alert: UIAlertController, from cellIndex: IndexPath) {
+    private func setUpAlertActions(for alert: UIAlertController, from cellIndex: IndexPath) {
         alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { [weak self] action in
             self?.performSegue(withIdentifier: K.Segues.manageToEdit, sender: self)
             self?.tableView.deselectRow(at: cellIndex, animated: true)
@@ -121,9 +121,9 @@ extension UserEventsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if events.isEmpty {
-            let cellMessage = "No personal events created."
-            
-            return setUpInformationCell(withMessage: cellMessage)
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+            cell.textLabel?.text = "No personal events created"
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
             let event = events[indexPath.row]

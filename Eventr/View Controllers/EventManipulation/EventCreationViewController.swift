@@ -63,7 +63,7 @@ class EventCreationViewController: EventManipulationViewController {
     }
     
     //MARK: - Helper functions
-    func createEvent() {
+    private func createEvent() {
         if let uid = FirebaseAuthManager.shared.getCurrentUser()?.uid, let title = eventTitle.text {
             let event = Event(creatorUID: uid, title: title, type: eventType, date: datePicker.date, address: address!)
             self.event = event
@@ -72,7 +72,7 @@ class EventCreationViewController: EventManipulationViewController {
         }
     }
     
-    func setTypePickerRow(to eventType: EventTypes) {
+    private func setTypePickerRow(to eventType: EventTypes) {
         let typeIndex = EventTypes.allCases.firstIndex(of: eventType)
         typePicker.selectRow(typeIndex!, inComponent: 0, animated: true)
     }

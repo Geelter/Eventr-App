@@ -8,13 +8,13 @@
 import UIKit
 import FirebaseFirestore
 
-class JoinedEventsViewController: EventViewController {
+class JoinedEventsViewController: UIViewController {
     
     //MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
-    var events = [Event]()
     var crossReferenceDelegate: EventCrossReferenceDelegate?
+    private var events = [Event]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,9 +89,9 @@ extension JoinedEventsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if events.isEmpty {
-            let cellMessage = "No events joined at this moment."
-            
-            return setUpInformationCell(withMessage: cellMessage)
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+            cell.textLabel?.text = "No personal events created"
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.eventCellIdentifier, for: indexPath) as! EventCell
             let event = events[indexPath.row]
@@ -113,7 +113,7 @@ extension JoinedEventsViewController: UITableViewDelegate {
 
 //MARK: - EventCrossReference Delegate
 extension JoinedEventsViewController: EventCrossReferenceDelegate {
-    func didChangeParticipation(_ eventViewController: EventViewController, for event: Event) {
+    func didChangeParticipation(_ eventViewController: UIViewController, for event: Event) {
         let eventIndex = events.firstIndex { $0.eventID == event.eventID }
         
         if eventIndex == nil {

@@ -23,6 +23,7 @@
   * Interactable cells displaying current values of user profile properties (excluding password)
   * On tapping the accessory button an alert for editing the selected property gets presented (performing the change requires the user to provide current password)
 * Replace the detail disclosure in setting cells with a custom button using delegation for alert presentation
+![Eventr - updated settings panel](https://user-images.githubusercontent.com/52202363/139252252-0258272a-0d15-4630-9e99-66938f60c2fa.png)
 
 ## To Do
 

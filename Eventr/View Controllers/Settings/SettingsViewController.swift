@@ -40,7 +40,8 @@ class SettingsViewController: UIViewController {
         let propertyDescription = property.description.lowercased()
         let alert = UIAlertController(title: "Change your \(propertyDescription)", message: "Enter your new \(propertyDescription) and current password", preferredStyle: .alert)
                 
-        alert.addTextField { textField in
+        alert.addTextField { [weak self] textField in
+            guard let self = self else {return}
             textField.placeholder = "New \(propertyDescription)"
             textField.isSecureTextEntry = property == .password ? true : false
             textField.returnKeyType = .continue
@@ -48,7 +49,8 @@ class SettingsViewController: UIViewController {
             textField.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
         }
         
-        alert.addTextField { textField in
+        alert.addTextField { [weak self] textField in
+            guard let self = self else {return}
             textField.placeholder = "Current password"
             textField.isSecureTextEntry = true
             textField.returnKeyType = .continue
@@ -110,7 +112,8 @@ class SettingsViewController: UIViewController {
     private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SettingCell.self, forCellReuseIdentifier: K.TableViews.settingCellIdentifier)
+        tableView.allowsSelection = false
+        tableView.register(UINib(nibName: K.TableViews.settingCellNibName, bundle: nil), forCellReuseIdentifier: K.TableViews.settingCellIdentifier)
     }
     
     private func textFieldTag(for property: AccountManagementOptions) -> Int {
@@ -145,18 +148,19 @@ extension SettingsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.TableViews.settingCellIdentifier, for: indexPath) as! SettingCell
         
         cell.selectionStyle = .none
-        cell.accessoryType = .detailDisclosureButton
+        cell.delegate = self
         
         guard let section = SettingsSections.init(rawValue: indexPath.section) else {return UITableViewCell()}
         
         switch section {
         case .accountManagement:
             if let managementOption = AccountManagementOptions(rawValue: indexPath.row) {
-                cell.textLabel?.text = managementOption.userProfileProperty
+                cell.settingLabel?.text = managementOption.userProfileProperty
                 cell.alert = createProfilePropertyChangeAlert(for: managementOption)
             }
         case .signOut:
-            cell.textLabel?.text = SignOutOptions.init(rawValue: indexPath.row)?.description
+            cell.settingLabel?.text = SignOutOptions.init(rawValue: indexPath.row)?.description
+            cell.settingButton.setTitle("", for: .normal)
             cell.alert = createSignOutAlert()
         }
         return cell
@@ -166,12 +170,14 @@ extension SettingsViewController: UITableViewDataSource {
 
 //MARK: - TableView Delegate
 extension SettingsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? SettingCell else {return}
-        if cell.alert != nil {
-            currentAlert = cell.alert!
-            present(currentAlert, animated: true)
-        }
+
+}
+
+//MARK: - SettingCell Delegate
+extension SettingsViewController: SettingCellDelegate {
+    func presentCellAlert(_ alert: UIAlertController) {
+        currentAlert = alert
+        present(alert, animated: true)
     }
 }
 

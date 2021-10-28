@@ -26,10 +26,6 @@ class EventCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
     func fillElements(using event: Event, uid: String) {
         self.eventTitleLabel.text = event.title
         self.eventDateLabel.text = DateManager.shared.getDateStringForCell(from: event.dateObject)

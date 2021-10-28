@@ -13,12 +13,21 @@ class SettingCell: UITableViewCell {
     @IBOutlet weak var settingButton: UIButton!
     
     var alert: UIAlertController?
+    var delegate: SettingCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.isUserInteractionEnabled = true
+        self.contentView.isUserInteractionEnabled = true
+        settingButton.isUserInteractionEnabled = true
     }
+    
+    @IBAction func settingButtonPressed(_ sender: UIButton) {
+        delegate?.presentCellAlert(alert!)
+    }
+}
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+protocol SettingCellDelegate {
+    func presentCellAlert(_ alert: UIAlertController)
 }

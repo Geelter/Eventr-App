@@ -1,8 +1,8 @@
 # Eventr-App
 
-# [App functionality showcase](https://youtu.be/hRAXYQlB8f4)
+## [App functionality showcase](https://youtu.be/hRAXYQlB8f4)
 
-# Completed features
+## Completed features
 
 * User input validation using regular expressions
 * User SignIn and SignUp done through Firebase
@@ -24,7 +24,7 @@
   * On tapping the accessory button an alert for editing the selected property gets presented (performing the change requires the user to provide current password)
 * Replace the detail disclosure in setting cells with a custom button using delegation for alert presentation
 
-# To Do
+## To Do
 
 * Limiting the number of documents per fetch and paginating the Table View
 * Archiving events

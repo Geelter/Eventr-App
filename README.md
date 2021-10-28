@@ -22,6 +22,7 @@
 * Settings panel based on segmented Table View
   * Interactable cells displaying current values of user profile properties (excluding password)
   * On tapping the accessory button an alert for editing the selected property gets presented (performing the change requires the user to provide current password)
+* Replace the detail disclosure in setting cells with a custom button using delegation for alert presentation
 
 # To Do
 
